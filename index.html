@@ -1,300 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unit V - Python Data Analysis & OOP</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <style>
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --bg:#0a0a0f;
-            --bg2:#12121a;
-            --bg3:#1a1a2e;
-            --surface:#16162a;
-            --surface2:#1e1e3a;
-            --border:rgba(255,255,255,0.06);
-            --text:#e4e4f0;
-            --text2:#8888aa;
-            --numpy:#6c9fff;
-            --numpy-glow:rgba(108,159,255,0.3);
-            --pandas:#ff6b4a;
-            --pandas-glow:rgba(255,107,74,0.3);
-            --oop:#4ade80;
-            --oop-glow:rgba(74,222,128,0.3);
-            --inherit:#c084fc;
-            --inherit-glow:rgba(192,132,252,0.3);
-            --accent:#f472b6;
-            --radius:20px;
-            --radius-sm:12px;
-        }
-        html{scroll-behavior:smooth;font-size:16px}
-        body{
-            font-family:'Inter',system-ui,sans-serif;
-            background:var(--bg);
-            color:var(--text);
-            line-height:1.7;
-            overflow-x:hidden
-        }
-        ::selection{background:rgba(108,159,255,0.3);color:#fff}
-        ::-webkit-scrollbar{width:6px}
-        ::-webkit-scrollbar-track{background:var(--bg)}
-        ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px}
-        ::-webkit-scrollbar-thumb:hover{background:var(--text2)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Unit V - Python Data Analysis & OOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+    --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a2e;--surface:#16162a;--surface2:#1e1e3a;
+    --border:rgba(255,255,255,0.06);--text:#e4e4f0;--text2:#8888aa;
+    --numpy:#6c9fff;--numpy-glow:rgba(108,159,255,0.3);
+    --pandas:#ff6b4a;--pandas-glow:rgba(255,107,74,0.3);
+    --oop:#4ade80;--oop-glow:rgba(74,222,128,0.3);
+    --inherit:#c084fc;--inherit-glow:rgba(192,132,252,0.3);
+    --accent:#f472b6;
+    --radius:20px;--radius-sm:12px;
+    --font-size:16px;
+}
+.light{--bg:#f5f5fa;--bg2:#eeeef4;--bg3:#e2e2ec;--surface:#ffffff;--surface2:#f0f0f6;--border:rgba(0,0,0,0.08);--text:#1a1a2e;--text2:#666688}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:var(--font-size)}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
+::selection{background:rgba(108,159,255,0.3);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px}
+.light ::-webkit-scrollbar-thumb{background:#ccc}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.03)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03)1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 50% 0%,black 30%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 50% 0%,black 30%,transparent 70%)}
+.light .grid-bg{background-image:linear-gradient(rgba(0,0,0,0.04)1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.04)1px,transparent 1px)}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbFloat 20s ease-in-out infinite}
+.orb-1{width:600px;height:600px;background:var(--numpy-glow);top:-200px;left:-200px}.orb-2{width:500px;height:500px;background:var(--pandas-glow);bottom:-150px;right:-150px;animation-delay:-7s}
+.orb-3{width:400px;height:400px;background:var(--oop-glow);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-14s}
+.light .orb{opacity:.5}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)scale(1)}25%{transform:translate(50px,-30px)scale(1.1)}50%{transform:translate(-20px,40px)scale(.9)}75%{transform:translate(30px,20px)scale(1.05)}}
 
-        /* --- GRID BACKGROUND --- */
-        .grid-bg{
-            position:fixed;inset:0;z-index:0;pointer-events:none;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
-                linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
-            background-size:60px 60px;
-            mask-image:radial-gradient(ellipse at 50% 0%,black 30%,transparent 70%);
-            -webkit-mask-image:radial-gradient(ellipse at 50% 0%,black 30%,transparent 70%)
-        }
+/* === SIDEBAR === */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;z-index:98;padding:80px 0 20px 0;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;transform:translateX(-100%);transition:transform .3s}
+.sidebar.open{transform:translateX(0)}
+.toc-btn{position:fixed;left:12px;bottom:80px;z-index:99;width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .3s;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.toc-btn:hover{background:var(--surface2)}
+.toc-list{list-style:none;padding:0 12px}
+.toc-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;cursor:pointer;transition:all .2s;color:var(--text2);font-size:.82rem;text-decoration:none}
+.toc-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.toc-item.active{background:rgba(108,159,255,.1);color:var(--numpy)}
+.toc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.toc-label{flex:1}
+.toc-check{opacity:0;transition:opacity .2s;font-size:.7rem}
+.toc-check.done{opacity:1;color:var(--oop)}
+.toc-title{padding:12px 16px 8px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text2)}
+@media(max-width:900px){.sidebar{width:100%;z-index:99}.sidebar.open{transform:translateX(0)}}
 
-        /* --- FLOATING ORBS --- */
-        .orb{
-            position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbFloat 20s ease-in-out infinite
-        }
-        .orb-1{width:600px;height:600px;background:var(--numpy-glow);top:-200px;left:-200px;animation-delay:0s}
-        .orb-2{width:500px;height:500px;background:var(--pandas-glow);bottom:-150px;right:-150px;animation-delay:-7s}
-        .orb-3{width:400px;height:400px;background:var(--oop-glow);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-14s}
-        @keyframes orbFloat{
-            0%,100%{transform:translate(0,0) scale(1)}
-            25%{transform:translate(50px,-30px) scale(1.1)}
-            50%{transform:translate(-20px,40px) scale(0.9)}
-            75%{transform:translate(30px,20px) scale(1.05)}
-        }
+/* === NAV === */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:6px;padding:6px 8px 6px 20px;background:rgba(22,22,42,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:100px;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:all .3s}
+.light nav{background:rgba(255,255,255,.7)}
+nav.scrolled{background:rgba(22,22,42,.9)}
+.light nav.scrolled{background:rgba(255,255,255,.9)}
+.nav-brand{font-weight:700;font-size:.85rem;background:linear-gradient(135deg,var(--numpy),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
+.nav-items{display:flex;gap:2px;list-style:none}
+.nav-items a{text-decoration:none;color:var(--text2);font-size:.78rem;font-weight:500;padding:5px 12px;border-radius:50px;transition:all .2s;white-space:nowrap}
+.nav-items a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:4px;margin-left:4px}
+.nav-btn{background:none;border:none;color:var(--text2);cursor:pointer;padding:5px 8px;border-radius:8px;font-size:.9rem;transition:all .2s;display:flex;align-items:center}
+.nav-btn:hover{background:rgba(255,255,255,.06);color:var(--text)}
+.search-wrap{position:relative}
+.search-wrap input{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:50px;padding:5px 12px 5px 28px;color:var(--text);font-size:.78rem;outline:none;width:120px;transition:all .3s}
+.search-wrap input:focus{width:200px;background:rgba(255,255,255,.1);border-color:var(--numpy)}
+.search-wrap .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:.75rem;pointer-events:none}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:4px 6px}
+@media(max-width:768px){
+    nav{padding:6px 12px;border-radius:16px;top:10px;left:10px;right:10px;transform:none;justify-content:space-between}
+    .nav-items{display:none;position:absolute;top:calc(100%+6px);left:0;right:0;flex-direction:column;background:rgba(22,22,42,.95);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:16px;padding:6px;gap:2px}
+    .light .nav-items{background:rgba(255,255,255,.95)}
+    .nav-items.active{display:flex}
+    .search-wrap input{width:80px}
+    .search-wrap input:focus{width:150px}
+    .nav-toggle{display:block}
+}
 
-        /* --- NAV --- */
-        nav{
-            position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;
-            display:flex;align-items:center;gap:8px;
-            padding:8px 12px 8px 24px;
-            background:rgba(22,22,42,0.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-            border:1px solid var(--border);border-radius:100px;
-            box-shadow:0 8px 32px rgba(0,0,0,0.4);
-            transition:all .3s
-        }
-        nav.scrolled{background:rgba(22,22,42,0.9);box-shadow:0 8px 40px rgba(0,0,0,0.5)}
-        .nav-brand{font-weight:700;font-size:.9rem;background:linear-gradient(135deg,var(--numpy),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
-        .nav-items{display:flex;gap:4px;list-style:none}
-        .nav-items a{
-            text-decoration:none;color:var(--text2);font-size:.8rem;font-weight:500;
-            padding:6px 14px;border-radius:50px;transition:all .2s;white-space:nowrap
-        }
-        .nav-items a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
-        .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+/* === HERO === */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center}
+.hero-content{max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;background:rgba(255,255,255,.04);border:1px solid var(--border);font-size:.78rem;font-weight:500;color:var(--text2);margin-bottom:24px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2rem,5.5vw,4.5rem);font-weight:900;line-height:1.08;margin-bottom:20px;letter-spacing:-2px}
+.hero h1 .line1{background:linear-gradient(to bottom,#fff 60%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.light .hero h1 .line1{background:linear-gradient(to bottom,#1a1a2e 60%,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 .line2{background:linear-gradient(135deg,var(--numpy),var(--accent),var(--pandas));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--text2);max-width:600px;margin:0 auto 36px;line-height:1.7}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--numpy),#4a7fd4);color:#fff;box-shadow:0 4px 20px var(--numpy-glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--numpy-glow)}
+.btn-outline{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--border)}
+.light .btn-outline{background:rgba(0,0,0,.04)}
+.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)}
+.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{display:block;font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--text2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:.82rem;color:var(--text2);margin-top:2px}
 
-        @media(max-width:768px){
-            nav{padding:8px 16px;border-radius:16px;top:12px;left:12px;right:12px;transform:none;justify-content:space-between}
-            .nav-items{display:none;position:absolute;top:calc(100%+8px);left:0;right:0;flex-direction:column;background:rgba(22,22,42,0.95);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:16px;padding:8px;gap:2px}
-            .nav-items.active{display:flex}
-            .nav-toggle{display:block}
-        }
+/* === SECTIONS === */
+.content{padding:100px 0;position:relative;z-index:1}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-header{text-align:center;margin-bottom:48px;scroll-margin-top:80px}
+.section-badge{display:inline-block;padding:6px 18px;border-radius:50px;font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;border:1px solid transparent}
+.badge-init{background:rgba(255,255,255,.04);color:var(--text2);border-color:var(--border)}
+.badge-numpy{background:rgba(108,159,255,.12);color:var(--numpy);border-color:rgba(108,159,255,.2)}
+.badge-pandas{background:rgba(255,107,74,.12);color:var(--pandas);border-color:rgba(255,107,74,.2)}
+.badge-oop{background:rgba(74,222,128,.12);color:var(--oop);border-color:rgba(74,222,128,.2)}
+.badge-inherit{background:rgba(192,132,252,.12);color:var(--inherit);border-color:rgba(192,132,252,.2)}
+.section-title{font-size:clamp(1.5rem,3.2vw,2.4rem);font-weight:800;margin-bottom:10px;line-height:1.2}
+.section-title span{font-weight:300;color:var(--text2)}
+.section-desc{font-size:1rem;color:var(--text2);max-width:650px;margin:0 auto;line-height:1.7}
 
-        /* --- HERO --- */
-        .hero{
-            position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;
-            padding:120px 24px 80px;text-align:center
-        }
-        .hero-content{max-width:800px;position:relative}
-        .hero-badge{
-            display:inline-flex;align-items:center;gap:8px;
-            padding:8px 20px;border-radius:50px;
-            background:rgba(255,255,255,0.04);border:1px solid var(--border);
-            font-size:.78rem;font-weight:500;color:var(--text2);margin-bottom:24px
-        }
-        .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
-        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-        .hero h1{
-            font-size:clamp(2.2rem,6vw,4.8rem);font-weight:900;line-height:1.08;margin-bottom:20px;letter-spacing:-2px
-        }
-        .hero h1 .line1{background:linear-gradient(to bottom,#fff 60%,rgba(255,255,255,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .hero h1 .line2{background:linear-gradient(135deg,var(--numpy),var(--accent),var(--pandas));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .hero p{
-            font-size:clamp(1rem,1.5vw,1.2rem);color:var(--text2);max-width:600px;margin:0 auto 36px;line-height:1.7
-        }
-        .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-        .btn{
-            display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;
-            font-size:.9rem;font-weight:600;text-decoration:none;transition:all .3s;cursor:pointer;border:none
-        }
-        .btn-primary{
-            background:linear-gradient(135deg,var(--numpy),#4a7fd4);color:#fff;
-            box-shadow:0 4px 20px var(--numpy-glow)
-        }
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--numpy-glow)}
-        .btn-outline{
-            background:rgba(255,255,255,0.04);color:var(--text);
-            border:1px solid var(--border)
-        }
-        .btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)}
-        .hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
-        .stat{text-align:center}
-        .stat-num{display:block;font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--text),var(--text2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .stat-label{font-size:.82rem;color:var(--text2);font-weight:400;margin-top:2px}
+/* === CARDS === */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;margin-bottom:24px;transition:all .3s}
+.card:hover{border-color:rgba(255,255,255,.08);box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.light .card:hover{border-color:rgba(0,0,0,.12);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.card h3{font-size:1.35rem;font-weight:700;margin-bottom:10px}
+.card h4{font-size:1.05rem;font-weight:600;margin-bottom:8px;margin-top:20px;color:var(--text)}
+.card p{font-size:.92rem;color:var(--text2);line-height:1.8;margin-bottom:10px}
+.card ul{padding-left:20px;margin-bottom:10px}
+.card ul li{font-size:.92rem;line-height:1.8;margin-bottom:3px}
+.card ul li::marker{color:var(--text2)}
+.card-highlight{background:linear-gradient(135deg,rgba(74,222,128,.04),rgba(108,159,255,.04));border-color:rgba(74,222,128,.1)}
 
-        /* --- SECTIONS --- */
-        section.content{padding:100px 0;position:relative;z-index:1}
-        .container{max-width:1100px;margin:0 auto;padding:0 24px}
-        .section-header{text-align:center;margin-bottom:56px}
-        .section-badge{
-            display:inline-block;padding:6px 18px;border-radius:50px;
-            font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px
-        }
-        .badge-numpy{background:rgba(108,159,255,0.12);color:var(--numpy);border:1px solid rgba(108,159,255,0.2)}
-        .badge-pandas{background:rgba(255,107,74,0.12);color:var(--pandas);border:1px solid rgba(255,107,74,0.2)}
-        .badge-oop{background:rgba(74,222,128,0.12);color:var(--oop);border:1px solid rgba(74,222,128,0.2)}
-        .badge-inherit{background:rgba(192,132,252,0.12);color:var(--inherit);border:1px solid rgba(192,132,252,0.2)}
-        .section-title{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;margin-bottom:12px;line-height:1.2}
-        .section-title span{font-weight:300;color:var(--text2)}
-        .section-desc{font-size:1.05rem;color:var(--text2);max-width:650px;margin:0 auto;line-height:1.7}
+/* === TOPIC CARDS === */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:40px}
+.topic-card{padding:32px 24px;border-radius:var(--radius);text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
+.topic-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+.tc-numpy::after{background:var(--numpy);box-shadow:0 0 20px var(--numpy-glow)}
+.tc-pandas::after{background:var(--pandas);box-shadow:0 0 20px var(--pandas-glow)}
+.tc-oop::after{background:var(--oop);box-shadow:0 0 20px var(--oop-glow)}
+.topic-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.1);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.topic-icon{font-size:1.8rem;margin-bottom:12px;display:block}
+.topic-card h3{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+.topic-card p{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.topic-arrow{font-weight:600;font-size:.82rem;opacity:0;transform:translateX(-10px);transition:all .3s}
+.topic-card:hover .topic-arrow{opacity:1;transform:translateX(0)}
+.topic-arrow-numpy{color:var(--numpy)}.topic-arrow-pandas{color:var(--pandas)}.topic-arrow-oop{color:var(--oop)}.topic-arrow-inherit{color:var(--inherit)}
 
-        /* --- TOPIC CARDS --- */
-        .topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px}
-        .topic-card{
-            padding:36px 28px;border-radius:var(--radius);text-decoration:none;color:var(--text);
-            background:var(--surface);border:1px solid var(--border);
-            transition:all .3s ease;position:relative;overflow:hidden
-        }
-        .topic-card::after{
-            content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0
-        }
-        .tc-numpy::after{background:var(--numpy);box-shadow:0 0 20px var(--numpy-glow)}
-        .tc-pandas::after{background:var(--pandas);box-shadow:0 0 20px var(--pandas-glow)}
-        .tc-oop::after{background:var(--oop);box-shadow:0 0 20px var(--oop-glow)}
-        .topic-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.1);box-shadow:0 20px 40px rgba(0,0,0,0.3)}
-        .topic-icon{font-size:2rem;margin-bottom:14px;display:block}
-        .topic-card h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
-        .topic-card p{font-size:.9rem;color:var(--text2);line-height:1.6;margin-bottom:16px}
-        .topic-arrow{font-weight:600;font-size:.85rem;opacity:0;transform:translateX(-10px);transition:all .3s}
-        .topic-card:hover .topic-arrow{opacity:1;transform:translateX(0)}
-        .topic-arrow-numpy{color:var(--numpy)}
-        .topic-arrow-pandas{color:var(--pandas)}
-        .topic-arrow-oop{color:var(--oop)}
+/* === CODE === */
+.code-block{background:#0d0d1a;border-radius:var(--radius-sm);margin:14px 0;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.light .code-block{background:#f5f5f8;border-color:rgba(0,0,0,.08)}
+.code-header{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.04)}
+.light .code-header{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.06)}
+.code-header-left{display:flex;align-items:center;gap:8px}
+.code-header span{font-size:.7rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.run-btn{background:rgba(74,222,128,.12);border:none;color:var(--oop);padding:2px 8px;border-radius:6px;font-size:.68rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:4px}
+.run-btn:hover{background:rgba(74,222,128,.2)}
+.copy-btn{background:rgba(255,255,255,.06);border:none;color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.7rem;cursor:pointer;transition:all .2s}
+.copy-btn:hover{background:rgba(255,255,255,.1);color:var(--text)}
+.code-block pre{padding:14px 18px;margin:0;overflow-x:auto}
+.code-block code{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.65;color:#cdd6f4}
+.light .code-block code{color:#333}
+.cm{color:#585b70;font-style:italic}.kw{color:#cba6f7;font-weight:500}.fn{color:#89b4fa}.cn{color:#f9e2af}.str{color:#a6e3a1}.op{color:#89dceb}.num{color:#fab387}.bo{color:#f38ba8}
+.light .kw{color:#7c3aed}.light .fn{color:#2563eb}.light .cn{color:#d97706}.light .str{color:#059669}.light .op{color:#0891b2}.light .num{color:#ea580c}.light .bo{color:#dc2626}.light .cm{color:#999}
+.code-output{margin-top:0;padding:12px 18px;background:rgba(0,0,0,.2);border-top:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#a6e3a1;display:none;white-space:pre-wrap}
+.light .code-output{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.06);color:#059669}
+.code-output.show{display:block}
 
-        /* --- CARDS --- */
-        .card{
-            background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;
-            margin-bottom:28px;transition:all .3s
-        }
-        .card:hover{border-color:rgba(255,255,255,0.08);box-shadow:0 16px 48px rgba(0,0,0,0.2)}
-        .card h3{font-size:1.5rem;font-weight:700;margin-bottom:12px}
-        .card h4{font-size:1.1rem;font-weight:600;margin-bottom:10px;margin-top:24px;color:var(--text)}
-        .card p{font-size:.95rem;color:var(--text2);line-height:1.8;margin-bottom:12px}
-        .card ul{padding-left:20px;margin-bottom:12px}
-        .card ul li{font-size:.95rem;line-height:1.8;margin-bottom:4px}
-        .card ul li::marker{color:var(--text2)}
+/* === DIAGRAMS === */
+.diagram-wrap{margin:20px 0;display:flex;justify-content:center}
+.diagram-wrap svg{max-width:100%;height:auto;border-radius:var(--radius-sm)}
+.diagram-caption{text-align:center;font-size:.82rem;color:var(--text2);margin-top:6px;font-style:italic}
 
-        .card-highlight{
-            background:linear-gradient(135deg,rgba(74,222,128,0.04),rgba(108,159,255,0.04));
-            border-color:rgba(74,222,128,0.1)
-        }
-        .card-highlight:hover{border-color:rgba(74,222,128,0.2)}
+/* === TABLES === */
+.table-wrap{overflow-x:auto;margin:14px 0}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.87rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+.tbl th{padding:10px 14px;text-align:left;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;background:rgba(255,255,255,.04);color:var(--text2);border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+.tbl code{background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px;font-size:.8rem;color:var(--numpy)}
 
-        /* --- CODE --- */
-        .code-block{
-            background:#0d0d1a;border-radius:var(--radius-sm);margin:16px 0;overflow:hidden;
-            border:1px solid rgba(255,255,255,0.06)
-        }
-        .code-header{
-            display:flex;justify-content:space-between;align-items:center;
-            padding:8px 16px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.04)
-        }
-        .code-header span{font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
-        .copy-btn{
-            background:rgba(255,255,255,0.06);border:none;color:var(--text2);
-            padding:3px 10px;border-radius:6px;font-size:.72rem;cursor:pointer;transition:all .2s
-        }
-        .copy-btn:hover{background:rgba(255,255,255,0.1);color:var(--text)}
-        .code-block pre{padding:16px 20px;margin:0;overflow-x:auto}
-        .code-block code{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.7;color:#cdd6f4}
-        .cm{color:#585b70;font-style:italic}
-        .kw{color:#cba6f7;font-weight:500}
-        .fn{color:#89b4fa}
-        .cn{color:#f9e2af}
-        .str{color:#a6e3a1}
-        .op{color:#89dceb}
-        .num{color:#fab387}
+/* === PILLARS === */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:18px}
+.pillar{text-align:center;padding:22px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .3s}
+.pillar:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+.pillar-icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.pillar h4{font-size:.95rem;font-weight:700;margin-bottom:4px;margin-top:0}
+.pillar p{font-size:.78rem;color:var(--text2);margin-bottom:0}
 
-        /* --- TABLES --- */
-        .table-wrap{overflow-x:auto;margin:16px 0}
-        .tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.9rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
-        .tbl th{padding:12px 16px;text-align:left;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;background:rgba(255,255,255,0.04);color:var(--text2);border-bottom:1px solid var(--border)}
-        .tbl td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--text)}
-        .tbl tr:last-child td{border-bottom:none}
-        .tbl tr:hover td{background:rgba(255,255,255,0.02)}
-        .tbl code{background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;font-size:.82rem;color:var(--numpy)}
+/* === QUIZ === */
+.quiz-box{background:rgba(108,159,255,.04);border:1px solid rgba(108,159,255,.15);border-radius:var(--radius);padding:28px;margin-bottom:24px}
+.quiz-title{font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.quiz-q{font-size:.9rem;font-weight:600;margin-bottom:10px;color:var(--text)}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:8px 14px;margin:4px 0;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .2s;font-size:.85rem}
+.quiz-opt:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+.quiz-opt input[type=radio]{accent-color:var(--numpy)}
+.quiz-opt.correct{background:rgba(74,222,128,.1);border-color:var(--oop)}
+.quiz-opt.wrong{background:rgba(255,107,74,.1);border-color:var(--pandas)}
+.quiz-result{font-size:.85rem;margin-top:8px;font-weight:600;display:none}
+.quiz-result.show{display:block}
+.quiz-submit{padding:8px 20px;border-radius:50px;background:var(--numpy);color:#fff;border:none;cursor:pointer;font-size:.82rem;font-weight:600;margin-top:8px;transition:all .2s}
+.quiz-submit:hover{opacity:.8}
+.quiz-reset{background:var(--surface2);color:var(--text2);padding:8px 20px;border-radius:50px;border:1px solid var(--border);cursor:pointer;font-size:.82rem;margin-top:8px;margin-left:8px}
 
-        /* --- PILLARS --- */
-        .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:20px}
-        .pillar{
-            text-align:center;padding:24px 16px;background:rgba(255,255,255,0.02);
-            border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .3s
-        }
-        .pillar:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.04)}
-        .pillar-icon{font-size:2rem;margin-bottom:10px;display:block}
-        .pillar h4{font-size:1rem;font-weight:700;margin-bottom:6px;margin-top:0}
-        .pillar p{font-size:.82rem;color:var(--text2);margin-bottom:0}
+/* === CTA & FOOTER === */
+.cta{padding:80px 0;text-align:center;position:relative;z-index:1;background:linear-gradient(180deg,transparent,var(--surface),transparent);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cta h2{font-size:1.8rem;font-weight:800;margin-bottom:10px}
+.cta p{font-size:.95rem;color:var(--text2);max-width:450px;margin:0 auto 24px}
+footer{padding:28px 0;text-align:center;position:relative;z-index:1;border-top:1px solid var(--border)}
+footer p{font-size:.82rem;color:var(--text2);margin-bottom:2px}
+footer .small{font-size:.72rem;opacity:.6}
 
-        /* --- CTA --- */
-        .cta{
-            padding:80px 0;text-align:center;position:relative;z-index:1;
-            background:linear-gradient(180deg,transparent,var(--surface),transparent);
-            border-top:1px solid var(--border);border-bottom:1px solid var(--border)
-        }
-        .cta h2{font-size:2rem;font-weight:800;margin-bottom:12px}
-        .cta p{font-size:1rem;color:var(--text2);max-width:450px;margin:0 auto 28px}
+/* === SCROLL TOP === */
+.scroll-top{position:fixed;bottom:28px;right:28px;z-index:90;width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);opacity:0;transform:translateY(20px);transition:all .3s}
+.scroll-top.visible{opacity:1;transform:translateY(0)}
+.scroll-top:hover{background:var(--surface2);transform:translateY(-3px)}
 
-        /* --- FOOTER --- */
-        footer{
-            padding:32px 0;text-align:center;position:relative;z-index:1;
-            border-top:1px solid var(--border)
-        }
-        footer p{font-size:.85rem;color:var(--text2);margin-bottom:2px}
-        footer .small{font-size:.75rem;opacity:.6}
+/* === PRESENTATION MODE === */
+.pres-overlay{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;flex-direction:column;padding:40px 60px;overflow-y:auto}
+.pres-overlay.active{display:flex}
+.pres-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.pres-title{font-size:.9rem;font-weight:600;color:var(--text2)}
+.pres-close{background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:4px 8px;border-radius:8px}
+.pres-close:hover{background:rgba(255,255,255,.06)}
+.pres-content{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.pres-content h1{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;margin-bottom:16px}
+.pres-content h2{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:800;margin-bottom:12px}
+.pres-content p{font-size:clamp(1rem,1.8vw,1.5rem);color:var(--text2);max-width:800px;line-height:1.6}
+.pres-content .code-block{text-align:left;max-width:800px;width:100%}
+.pres-content ul{font-size:clamp(1rem,1.5vw,1.3rem);text-align:left;color:var(--text2);line-height:2}
+.pres-nav{display:flex;justify-content:center;gap:16px;margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}
+.pres-nav-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 24px;border-radius:50px;cursor:pointer;font-size:.85rem;transition:all .2s}
+.pres-nav-btn:hover{background:var(--surface2)}
+.pres-counter{font-size:.82rem;color:var(--text2);display:flex;align-items:center}
+@media(max-width:768px){.pres-overlay{padding:20px 24px}.pres-content h1{font-size:1.8rem}.pres-content h2{font-size:1.4rem}.pres-content p{font-size:1rem}}
 
-        /* --- SCROLL TOP --- */
-        .scroll-top{
-            position:fixed;bottom:28px;right:28px;z-index:99;
-            width:44px;height:44px;border-radius:50%;
-            background:var(--surface);border:1px solid var(--border);color:var(--text);
-            font-size:1.2rem;cursor:pointer;
-            box-shadow:0 4px 16px rgba(0,0,0,0.3);
-            opacity:0;transform:translateY(20px);transition:all .3s
-        }
-        .scroll-top.visible{opacity:1;transform:translateY(0)}
-        .scroll-top:hover{background:var(--surface2);transform:translateY(-3px)}
+/* === ANIMATIONS === */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-        /* --- ANIMATIONS --- */
-        .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-        .reveal.visible{opacity:1;transform:translateY(0)}
+/* === FONT CONTROLS === */
+.font-size-controls{display:flex;gap:2px}
+.font-size-btn{background:none;border:1px solid var(--border);color:var(--text2);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.font-size-btn:hover{background:rgba(255,255,255,.06);color:var(--text)}
 
-        @media(max-width:768px){
-            section.content{padding:60px 0}
-            .card{padding:24px}
-            .hero-stats{gap:28px}
-            .stat-num{font-size:1.5rem}
-            .container{padding:0 16px}
-        }
-        @media print{
-            nav,.scroll-top,.cta,.orb,.grid-bg{display:none!important}
-            body{background:#fff;color:#000}
-            .card{break-inside:avoid;border:1px solid #ddd;background:#fff}
-            .code-block{break-inside:avoid;background:#f5f5f5}
-            .code-block code{color:#333}
-            .hero{min-height:auto;padding:40px 0}
-            .hero h1 .line1,.hero h1 .line2{-webkit-text-fill-color:initial;color:#000}
-            .stat-num{-webkit-text-fill-color:initial;color:#000}
-            .section-title{color:#000}
-            .tbl{border:1px solid #ddd}
-            .tbl th{background:#f0f0f0;color:#333}
-            .tbl td{color:#333;border-color:#ddd}
-        }
-    </style>
+/* === SEARCH OVERLAY === */
+.search-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding-top:100px}
+.search-overlay.active{display:flex}
+.search-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;width:90%;max-width:600px;max-height:60vh;overflow-y:auto}
+.search-modal input{width:100%;padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.9rem;outline:none;margin-bottom:12px}
+.search-modal input:focus{border-color:var(--numpy)}
+.search-result{padding:8px 12px;border-radius:8px;cursor:pointer;transition:all .2s}
+.search-result:hover{background:rgba(255,255,255,.04)}
+.search-result h4{font-size:.85rem;font-weight:600;margin-bottom:2px}
+.search-result p{font-size:.75rem;color:var(--text2)}
+
+@media(max-width:768px){
+    .content{padding:60px 0}
+    .card{padding:22px}
+    .hero-stats{gap:24px}
+    .stat-num{font-size:1.4rem}
+    .container{padding:0 14px}
+    .pres-overlay{padding:16px}
+}
+@media print{
+    nav,.sidebar,.toc-btn,.scroll-top,.cta,.orb,.grid-bg,.quiz-box,
+    .pres-overlay,.search-overlay,.run-btn,.copy-btn,.font-size-controls,
+    .nav-actions{display:none!important}
+    body{background:#fff;color:#000;font-size:12pt}
+    .card{break-inside:avoid;border:1px solid #ddd;background:#fff;box-shadow:none}
+    .code-block{break-inside:avoid;background:#f5f5f5}
+    .code-block code{color:#333}
+    .hero{min-height:auto;padding:30px 0}
+    .hero h1 .line1,.hero h1 .line2{-webkit-text-fill-color:initial;color:#000}
+    .stat-num{-webkit-text-fill-color:initial;color:#000}
+    .tbl{border:1px solid #ddd}
+    .tbl th{background:#f0f0f0;color:#333}
+    .tbl td{color:#333;border-color:#ddd}
+    .diagram-wrap svg{max-width:60%}
+}
+</style>
 </head>
 <body>
 
@@ -303,6 +284,27 @@
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
 
+<!-- SIDEBAR TOC -->
+<button class="toc-btn" id="tocBtn" title="Table of Contents">&#x2630;</button>
+<div class="sidebar" id="sidebar">
+    <div class="toc-title">On this page</div>
+    <div class="toc-list" id="tocList">
+        <a class="toc-item" href="#topics" data-section="topics"><span class="toc-dot" style="background:var(--text2)"></span><span class="toc-label">Topics</span><span class="toc-check" id="chk-topics">&#x2713;</span></a>
+        <a class="toc-item" href="#numpy" data-section="numpy"><span class="toc-dot" style="background:var(--numpy)"></span><span class="toc-label">NumPy</span><span class="toc-check" id="chk-numpy">&#x2713;</span></a>
+        <a class="toc-item" href="#pandas" data-section="pandas"><span class="toc-dot" style="background:var(--pandas)"></span><span class="toc-label">Pandas</span><span class="toc-check" id="chk-pandas">&#x2713;</span></a>
+        <a class="toc-item" href="#oop" data-section="oop"><span class="toc-dot" style="background:var(--oop)"></span><span class="toc-label">OOP</span><span class="toc-check" id="chk-oop">&#x2713;</span></a>
+        <a class="toc-item" href="#inheritance" data-section="inheritance"><span class="toc-dot" style="background:var(--inherit)"></span><span class="toc-label">Inheritance</span><span class="toc-check" id="chk-inheritance">&#x2713;</span></a>
+    </div>
+    <div class="toc-title" style="padding-top:16px">Progress</div>
+    <div style="padding:8px 16px">
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+            <div id="progressBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--numpy),var(--oop));border-radius:2px;transition:width .5s"></div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text2);margin-top:4px;text-align:center" id="progressPct">0% complete</div>
+    </div>
+</div>
+
+<!-- NAV -->
 <nav id="nav">
     <span class="nav-brand">&#x25B6; Unit V</span>
     <ul class="nav-items" id="navItems">
@@ -311,21 +313,50 @@
         <li><a href="#oop">OOP</a></li>
         <li><a href="#inheritance">Inheritance</a></li>
     </ul>
+    <div class="nav-actions">
+        <div class="font-size-controls">
+            <button class="font-size-btn" id="fontDec" title="Decrease font size">A-</button>
+            <button class="font-size-btn" id="fontInc" title="Increase font size">A+</button>
+        </div>
+        <button class="nav-btn" id="presBtn" title="Presentation Mode (P)">&#x1F4FA;</button>
+        <button class="nav-btn" id="searchBtn" title="Search (S)">&#x1F50D;</button>
+        <button class="nav-btn" id="themeBtn" title="Toggle Theme (D)">&#x1F319;</button>
+    </div>
     <button class="nav-toggle" id="navToggle">&#x2630;</button>
 </nav>
 
-<!-- ====== HERO ====== -->
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+        <input type="text" id="searchInput" placeholder="Search topics, code, concepts..." autofocus>
+        <div id="searchResults"></div>
+    </div>
+</div>
+
+<!-- PRESENTATION OVERLAY -->
+<div class="pres-overlay" id="presOverlay">
+    <div class="pres-header">
+        <span class="pres-title">&#x1F4FA; Presentation Mode</span>
+        <button class="pres-close" id="presClose">&times;</button>
+    </div>
+    <div class="pres-content" id="presContent"></div>
+    <div class="pres-nav">
+        <button class="pres-nav-btn" id="presPrev">&#x2190; Previous</button>
+        <span class="pres-counter" id="presCounter">1 / 1</span>
+        <button class="pres-nav-btn" id="presNext">Next &#x2192;</button>
+    </div>
+</div>
+
+<!-- ===== HERO ===== -->
 <section class="hero">
     <div class="hero-content">
-        <div class="hero-badge"><span class="hero-badge-dot"></span> Python Programming - Unit V</div>
-        <h1>
-            <div class="line1">Data Analysis with Python</div>
-            <div class="line2">&amp; Object-Oriented Programming</div>
-        </h1>
-        <p>Master NumPy, Pandas, and OOP concepts with interactive examples — designed for clear, engaging learning</p>
+        <div class="hero-badge"><span class="hero-badge-dot"></span> Python Programming &mdash; Unit V</div>
+        <h1><div class="line1">Data Analysis with Python</div><div class="line2">&amp; Object-Oriented Programming</div></h1>
+        <p>Master NumPy, Pandas, and OOP concepts with interactive examples, visual diagrams, and quizzes</p>
         <div class="hero-actions">
             <a href="#numpy" class="btn btn-primary">Start Learning &rarr;</a>
             <a href="#topics" class="btn btn-outline">Explore Topics</a>
+            <button class="btn btn-outline" id="heroPresBtn">&#x1F4FA; Present</button>
         </div>
         <div class="hero-stats">
             <div class="stat"><span class="stat-num">3</span><span class="stat-label">Core Topics</span></div>
@@ -335,752 +366,510 @@
     </div>
 </section>
 
-<!-- ====== TOPICS ====== -->
+<!-- ===== TOPICS ===== -->
 <section class="content" id="topics">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge" style="background:rgba(255,255,255,0.04);color:var(--text2);border-color:var(--border)">Topics Covered</span>
-            <h2 class="section-title">What You'll <span>Learn</span></h2>
-            <p class="section-desc">Three essential pillars of Python — from data crunching to software design</p>
-        </div>
-        <div class="topic-grid">
-            <a href="#numpy" class="topic-card tc-numpy">
-                <span class="topic-icon">&#x1F9EE;</span>
-                <h3>NumPy</h3>
-                <p>N-dimensional arrays, indexing, slicing, broadcasting, data types &amp; vectorized operations</p>
-                <span class="topic-arrow topic-arrow-numpy">Explore &rarr;</span>
-            </a>
-            <a href="#pandas" class="topic-card tc-pandas">
-                <span class="topic-icon">&#x1F4CA;</span>
-                <h3>Pandas</h3>
-                <p>Series, DataFrames, data cleaning, filtering, grouping, aggregation &amp; transformation</p>
-                <span class="topic-arrow topic-arrow-pandas">Explore &rarr;</span>
-            </a>
-            <a href="#oop" class="topic-card tc-oop">
-                <span class="topic-icon">&#x1F50C;</span>
-                <h3>OOP</h3>
-                <p>Classes, objects, methods, inheritance, encapsulation, polymorphism &amp; abstraction</p>
-                <span class="topic-arrow topic-arrow-oop">Explore &rarr;</span>
-            </a>
-        </div>
-    </div>
+<div class="container">
+<div class="section-header">
+    <span class="section-badge badge-init">Topics Covered</span>
+    <h2 class="section-title">What You'll <span>Learn</span></h2>
+    <p class="section-desc">Three essential pillars of Python &mdash; from data crunching to software design</p>
+</div>
+<div class="topic-grid">
+    <a href="#numpy" class="topic-card tc-numpy"><span class="topic-icon">&#x1F9EE;</span><h3>NumPy</h3><p>N-dimensional arrays, indexing, slicing, data types &amp; vectorized operations</p><span class="topic-arrow topic-arrow-numpy">Explore &rarr;</span></a>
+    <a href="#pandas" class="topic-card tc-pandas"><span class="topic-icon">&#x1F4CA;</span><h3>Pandas</h3><p>Series, DataFrames, cleaning, filtering, grouping &amp; aggregation</p><span class="topic-arrow topic-arrow-pandas">Explore &rarr;</span></a>
+    <a href="#oop" class="topic-card tc-oop"><span class="topic-icon">&#x1F50C;</span><h3>OOP</h3><p>Classes, objects, methods, inheritance &amp; the four pillars</p><span class="topic-arrow topic-arrow-oop">Explore &rarr;</span></a>
+</div>
+</div>
 </section>
 
-<!-- ====== NUMPY ====== -->
+<!-- ===== NUMPY ===== -->
 <section class="content" id="numpy">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge badge-numpy">Topic 1</span>
-            <h2 class="section-title">NumPy <span>&mdash; Numerical Python</span></h2>
-            <p class="section-desc">The fundamental package for scientific computing — high-performance multidimensional arrays</p>
-        </div>
+<div class="container">
+<div class="section-header">
+    <span class="section-badge badge-numpy">Topic 1</span>
+    <h2 class="section-title">NumPy <span>&mdash; Numerical Python</span></h2>
+    <p class="section-desc">The fundamental package for scientific computing &mdash; high-performance multidimensional arrays</p>
+</div>
 
-        <div class="card reveal">
-            <h3>What is NumPy?</h3>
-            <p>NumPy (Numerical Python) is the backbone of data science in Python. It provides a powerful N-dimensional array object (<code>ndarray</code>) and tools for efficient numerical computation.</p>
-            <ul>
-                <li>N-dimensional array object (ndarray)</li>
-                <li>Sophisticated broadcasting functions</li>
-                <li>Linear algebra, Fourier transform &amp; random number tools</li>
-                <li>C/C++ &amp; Fortran code integration</li>
-            </ul>
-        </div>
+<div class="card reveal">
+<h3>What is NumPy?</h3>
+<p>NumPy (Numerical Python) is the backbone of data science. It provides a powerful N-dimensional array object (<code>ndarray</code>) and tools for efficient numerical computation.</p>
+<ul>
+<li>N-dimensional array object (ndarray)</li>
+<li>Sophisticated broadcasting functions</li>
+<li>Linear algebra, Fourier transform &amp; random number tools</li>
+<li>C/C++ &amp; Fortran code integration</li>
+</ul>
+</div>
 
-        <div class="card reveal">
-            <h3>Creating Arrays</h3>
-            <p>Arrays can be created from Python lists, tuples, or using built-in NumPy functions:</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">import</span> numpy <span class="kw">as</span> np
+<div class="card reveal">
+<h3>Creating Arrays</h3>
+<p>Arrays can be created from Python lists, tuples, or using built-in functions:</p>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'[1 2 3]\n[[1 2 3]\n [4 5 6]]\n[1 3 2]')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">import</span> numpy <span class="kw">as</span> np
 
 <span class="cm"># From a list</span>
 arr <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>])
-<span class="fn">print</span>(arr)  <span class="cm"># [1 2 3]</span>
+<span class="fn">print</span>(arr)
 
 <span class="cm"># 2D from nested list</span>
 arr2 <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>], [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>]])
+<span class="fn">print</span>(arr2)
 
 <span class="cm"># From a tuple</span>
 arr3 <span class="op">=</span> np.<span class="fn">array</span>((<span class="num">1</span>, <span class="num">3</span>, <span class="num">2</span>))
+<span class="fn">print</span>(arr3)</code></pre>
+<div class="code-output" id="output-0"></div>
+</div>
+</div>
 
-<span class="cm"># 3D array</span>
-arr4 <span class="op">=</span> np.<span class="fn">array</span>([[[<span class="num">1</span>, <span class="num">2</span>], [<span class="num">3</span>, <span class="num">4</span>]],
-                 [[<span class="num">5</span>, <span class="num">6</span>], [<span class="num">7</span>, <span class="num">8</span>]]])</code></pre>
-            </div>
-        </div>
+<div class="card reveal">
+<h3>ndarray &amp; Its Attributes</h3>
+<p>The ndarray is the core NumPy object &mdash; a homogeneous, multi-dimensional container. Each array has key attributes:</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Description</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>shape</code></td><td>Tuple of array dimensions</td><td><code>(2, 3)</code></td></tr>
+<tr><td><code>ndim</code></td><td>Number of dimensions (axes)</td><td><code>2</code></td></tr>
+<tr><td><code>size</code></td><td>Total number of elements</td><td><code>6</code></td></tr>
+<tr><td><code>dtype</code></td><td>Data type of elements</td><td><code>int64</code></td></tr>
+<tr><td><code>itemsize</code></td><td>Size (bytes) of each element</td><td><code>8</code></td></tr>
+</tbody>
+</table>
+</div>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Shape: (2, 3)\nDim: 2\nSize: 6\nType: int64\nItem size: 8')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>arr <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>]])
+<span class="fn">print</span>(<span class="str">"Shape:"</span>, arr.shape)
+<span class="fn">print</span>(<span class="str">"Dim:"</span>, arr.ndim)
+<span class="fn">print</span>(<span class="str">"Size:"</span>, arr.size)
+<span class="fn">print</span>(<span class="str">"Type:"</span>, arr.dtype)
+<span class="fn">print</span>(<span class="str">"Item size:"</span>, arr.itemsize)</code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>ndarray Attributes</h3>
-            <p>Key properties that define every NumPy array:</p>
-            <div class="table-wrap">
-                <table class="tbl">
-                    <thead><tr><th>Attribute</th><th>Description</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>shape</code></td><td>Tuple of array dimensions</td></tr>
-                        <tr><td><code>ndim</code></td><td>Number of dimensions (axes)</td></tr>
-                        <tr><td><code>size</code></td><td>Total number of elements</td></tr>
-                        <tr><td><code>dtype</code></td><td>Data type of elements</td></tr>
-                        <tr><td><code>itemsize</code></td><td>Size (bytes) of each element</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>arr <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>], [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>]])
-<span class="fn">print</span>(<span class="str">"Shape:"</span>, arr.shape)      <span class="cm"># (2, 3)</span>
-<span class="fn">print</span>(<span class="str">"Dim:"</span>, arr.ndim)         <span class="cm"># 2</span>
-<span class="fn">print</span>(<span class="str">"Size:"</span>, arr.size)        <span class="cm"># 6</span>
-<span class="fn">print</span>(<span class="str">"Type:"</span>, arr.dtype)       <span class="cm"># int64</span>
-<span class="fn">print</span>(<span class="str">"Item size:"</span>, arr.itemsize) <span class="cm"># 8</span></code></pre>
-            </div>
-        </div>
+<div class="card reveal">
+<h3>NumPy Array Indexing &mdash; Visual Guide</h3>
+<p>Positive indexing starts at <strong>0</strong> (left), negative at <strong>-1</strong> (right):</p>
+<div class="diagram-wrap">
+<svg viewBox="0 0 600 140" width="600" height="140">
+<rect x="20" y="20" width="80" height="80" rx="10" fill="rgba(108,159,255,0.15)" stroke="var(--numpy)" stroke-width="2"/>
+<rect x="110" y="20" width="80" height="80" rx="10" fill="rgba(108,159,255,0.1)" stroke="var(--numpy)" stroke-width="1.5"/>
+<rect x="200" y="20" width="80" height="80" rx="10" fill="rgba(108,159,255,0.08)" stroke="var(--numpy)" stroke-width="1"/>
+<rect x="290" y="20" width="80" height="80" rx="10" fill="rgba(255,107,74,0.08)" stroke="var(--pandas)" stroke-width="1"/>
+<rect x="380" y="20" width="80" height="80" rx="10" fill="rgba(255,107,74,0.1)" stroke="var(--pandas)" stroke-width="1.5"/>
+<rect x="470" y="20" width="80" height="80" rx="10" fill="rgba(255,107,74,0.15)" stroke="var(--pandas)" stroke-width="2"/>
+<text x="60" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">23</text>
+<text x="150" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">21</text>
+<text x="240" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">55</text>
+<text x="330" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">65</text>
+<text x="420" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">89</text>
+<text x="510" y="60" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700">23</text>
+<text x="60" y="130" text-anchor="middle" fill="var(--numpy)" font-size="13" font-weight="600">[0]</text>
+<text x="150" y="130" text-anchor="middle" fill="var(--numpy)" font-size="13" font-weight="600">[1]</text>
+<text x="240" y="130" text-anchor="middle" fill="var(--numpy)" font-size="13" font-weight="600">[2]</text>
+<text x="330" y="130" text-anchor="middle" fill="var(--pandas)" font-size="13" font-weight="600">[3]</text>
+<text x="420" y="130" text-anchor="middle" fill="var(--pandas)" font-size="13" font-weight="600">[4]</text>
+<text x="510" y="130" text-anchor="middle" fill="var(--pandas)" font-size="13" font-weight="600">[5]</text>
+<text x="60" y="115" text-anchor="middle" fill="var(--pandas)" font-size="11">[-6]</text>
+<text x="150" y="115" text-anchor="middle" fill="var(--pandas)" font-size="11">[-5]</text>
+<text x="240" y="115" text-anchor="middle" fill="var(--pandas)" font-size="11">[-4]</text>
+<text x="330" y="115" text-anchor="middle" fill="var(--numpy)" font-size="11">[-3]</text>
+<text x="420" y="115" text-anchor="middle" fill="var(--numpy)" font-size="11">[-2]</text>
+<text x="510" y="115" text-anchor="middle" fill="var(--numpy)" font-size="11">[-1]</text>
+</svg>
+</div>
+<p class="diagram-caption">Positive index (blue) vs Negative index (orange) in a 1D NumPy array</p>
 
-        <div class="card reveal">
-            <h3>Data Types</h3>
-            <p>NumPy guesses the dtype or you can specify it explicitly:</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>x <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1</span>, <span class="num">2</span>])
-<span class="fn">print</span>(x.dtype)  <span class="cm"># int64</span>
-
-x <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1.0</span>, <span class="num">2.0</span>])
-<span class="fn">print</span>(x.dtype)  <span class="cm"># float64</span>
-
-x <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1</span>, <span class="num">2</span>], dtype<span class="op">=</span>np.int64)
-<span class="fn">print</span>(x.dtype)  <span class="cm"># int64</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Array Operations</h3>
-            <p>Element-wise arithmetic, unary and binary operations:</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>a <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>,<span class="num">2</span>],[<span class="num">3</span>,<span class="num">4</span>]])
-b <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">4</span>,<span class="num">3</span>],[<span class="num">2</span>,<span class="num">1</span>]])
-
-<span class="fn">print</span>(a <span class="op">+</span> <span class="num">1</span>)       <span class="cm"># Add scalar</span>
-<span class="fn">print</span>(a.<span class="fn">sum</span>())    <span class="cm"># Sum all</span>
-<span class="fn">print</span>(a <span class="op">+</span> b)       <span class="cm"># Element-wise add</span>
-<span class="fn">print</span>(a <span class="op">*</span> b)       <span class="cm"># Element-wise multiply</span>
-
-<span class="cm"># NumPy functions</span>
-arr <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">4</span>,<span class="num">7</span>],[<span class="num">2</span>,<span class="num">6</span>]], dtype<span class="op">=</span>np.float64)
-<span class="fn">print</span>(np.<span class="fn">add</span>(arr, arr))   <span class="cm"># np.add</span>
-<span class="fn">print</span>(np.<span class="fn">sqrt</span>(arr))      <span class="cm"># np.sqrt</span>
-<span class="fn">print</span>(arr.<span class="fn">T</span>)             <span class="cm"># Transpose</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Indexing &amp; Slicing</h3>
-            <p>Positive indexing starts at 0; negative starts at -1 (right to left):</p>
-            <div class="table-wrap">
-                <table class="tbl">
-                    <thead><tr><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead>
-                    <tbody>
-                        <tr><td style="color:var(--pandas)"><strong>Negative</strong></td><td>-5</td><td>-4</td><td>-3</td><td>-2</td><td>-1</td></tr>
-                        <tr><td><strong>Element</strong></td><td>23</td><td>21</td><td>55</td><td>65</td><td>23</td></tr>
-                        <tr><td style="color:var(--numpy)"><strong>Positive</strong></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>arr <span class="op">=</span> np.<span class="fn">array</span>([[-<span class="num">1</span>, <span class="num">2</span>, <span class="num">0</span>, <span class="num">4</span>],
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'[[-1.  0.]\n [ 4.  6.]]\n[0. 6. 2. 3.]')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="cm"># 2D Slicing</span>
+arr <span class="op">=</span> np.<span class="fn">array</span>([[-<span class="num">1</span>, <span class="num">2</span>, <span class="num">0</span>, <span class="num">4</span>],
               [<span class="num">4</span>, -<span class="num">0.5</span>, <span class="num">6</span>, <span class="num">0</span>],
               [<span class="num">2.6</span>, <span class="num">0</span>, <span class="num">7</span>, <span class="num">8</span>],
               [<span class="num">3</span>, -<span class="num">7</span>, <span class="num">4</span>, <span class="num">2.0</span>]])
 
-<span class="cm"># Slicing [start:stop:step]</span>
-<span class="fn">print</span>(arr[:<span class="num">2</span>, ::<span class="num">2</span>])  <span class="cm"># first 2 rows, every 2nd col</span>
+<span class="cm"># First 2 rows, alternate columns</span>
+<span class="fn">print</span>(arr[:<span class="num">2</span>, ::<span class="num">2</span>])
 
-<span class="cm"># Index arrays</span>
-<span class="fn">print</span>(arr[[<span class="num">1</span>,<span class="num">1</span>,<span class="num">0</span>,<span class="num">3</span>], [<span class="num">3</span>,<span class="num">2</span>,<span class="num">1</span>,<span class="num">0</span>]])</code></pre>
-            </div>
-        </div>
+<span class="cm"># Integer array indexing</span>
+<span class="fn">print</span>(arr[[<span class="num">1</span>,<span class="num">1</span>,<span class="num">0</span>,<span class="num">3</span>],[<span class="num">3</span>,<span class="num">2</span>,<span class="num">1</span>,<span class="num">0</span>]])</code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>Basic Slicing Details</h3>
-            <p>Syntax: <code>x[start:stop:step]</code> &mdash; returns a <strong>view</strong> (not a copy).</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>a <span class="op">=</span> np.<span class="fn">arange</span>(<span class="num">20</span>)
-<span class="fn">print</span>(a[<span class="num">15</span>])        <span class="cm"># Single element</span>
-<span class="fn">print</span>(a[<span class="op">-</span><span class="num">8</span>:<span class="num">17</span>:<span class="num">1</span>])  <span class="cm"># Range</span>
-<span class="fn">print</span>(a[<span class="num">10</span>:])        <span class="cm"># From index 10 onward</span>
+<div class="card reveal">
+<h3>Array Operations &amp; Data Types</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Adding 1: [[2 3]\n [4 5]]\nSum: 10\n[[5 5]\n [5 5]]\nint64\nfloat64')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>a <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>,<span class="num">2</span>],[<span class="num">3</span>,<span class="num">4</span>]])
+b <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">4</span>,<span class="num">3</span>],[<span class="num">2</span>,<span class="num">1</span>]])
 
-<span class="cm"># Ellipsis (...) accesses all inner dimensions</span>
-b <span class="op">=</span> np.<span class="fn">array</span>([[[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>]],
-              [[<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>],[<span class="num">10</span>,<span class="num">11</span>,<span class="num">12</span>]]])
-<span class="fn">print</span>(b[..., <span class="num">1</span>])   <span class="cm"># 2nd element of each inner list</span></code></pre>
-            </div>
-        </div>
+<span class="fn">print</span>(<span class="str">"Adding 1:"</span>, a <span class="op">+</span> <span class="num">1</span>)
+<span class="fn">print</span>(<span class="str">"Sum:"</span>, a.<span class="fn">sum</span>())
+<span class="fn">print</span>(a <span class="op">+</span> b)
 
-        <div class="card reveal">
-            <h3>Advanced Indexing</h3>
-            <p>Returns a <strong>copy</strong> (not a view). Two types:</p>
-            <h4>1. Integer Array Indexing</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>a <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">1</span>,<span class="num">2</span>],[<span class="num">3</span>,<span class="num">4</span>],[<span class="num">5</span>,<span class="num">6</span>]])
-<span class="fn">print</span>(a[[<span class="num">0</span>,<span class="num">1</span>,<span class="num">2</span>],[<span class="num">0</span>,<span class="num">0</span>,<span class="num">1</span>]])  <span class="cm"># [1 3 6]</span></code></pre>
-            </div>
-            <h4>2. Boolean Indexing</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>a <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">10</span>, <span class="num">40</span>, <span class="num">80</span>, <span class="num">50</span>, <span class="num">100</span>])
-<span class="fn">print</span>(a[a <span class="op">></span> <span class="num">50</span>])  <span class="cm"># [80 100]</span>
+<span class="cm"># Data types</span>
+x <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1</span>, <span class="num">2</span>])
+<span class="fn">print</span>(x.dtype)
+x <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">1.0</span>, <span class="num">2.0</span>])
+<span class="fn">print</span>(x.dtype)</code></pre>
+</div>
+</div>
+
+<div class="card reveal">
+<h3>Boolean Indexing</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'[ 80 100]\n[[ 5  5]\n [16  4]]')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>a <span class="op">=</span> np.<span class="fn">array</span>([<span class="num">10</span>, <span class="num">40</span>, <span class="num">80</span>, <span class="num">50</span>, <span class="num">100</span>])
+<span class="fn">print</span>(a[a <span class="op">&gt;</span> <span class="num">50</span>])  <span class="cm"># Filter: [80 100]</span>
 
 b <span class="op">=</span> np.<span class="fn">array</span>([[<span class="num">5</span>,<span class="num">5</span>],[<span class="num">4</span>,<span class="num">5</span>],[<span class="num">16</span>,<span class="num">4</span>]])
-<span class="fn">print</span>(b[b.<span class="fn">sum</span>(<span class="op">-</span><span class="num">1</span>) <span class="op">%</span> <span class="num">10</span> <span class="op">==</span> <span class="num">0</span>])
-<span class="cm"># [[5 5]</span>
-<span class="cm">#  [16 4]]</span></code></pre>
-            </div>
-        </div>
-    </div>
+<span class="fn">print</span>(b[b.<span class="fn">sum</span>(<span class="op">-</span><span class="num">1</span>) <span class="op">%</span> <span class="num">10</span> <span class="op">==</span> <span class="num">0</span>])</code></pre>
+</div>
+</div>
+
+<!-- NUMBAY QUIZ -->
+<div class="quiz-box reveal">
+<div class="quiz-title">&#x1F9F0; Quick Quiz &mdash; NumPy</div>
+<div id="quizNumPy"></div>
+</div>
+</div>
 </section>
 
-<!-- ====== PANDAS ====== -->
+<!-- ===== PANDAS ===== -->
 <section class="content" id="pandas">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge badge-pandas">Topic 2</span>
-            <h2 class="section-title">Pandas <span>&mdash; Data Analysis Library</span></h2>
-            <p class="section-desc">Powerful data manipulation tools — Series, DataFrames, cleaning, grouping &amp; aggregation</p>
-        </div>
+<div class="container">
+<div class="section-header">
+    <span class="section-badge badge-pandas">Topic 2</span>
+    <h2 class="section-title">Pandas <span>&mdash; Data Analysis Library</span></h2>
+    <p class="section-desc">Powerful data manipulation &mdash; Series, DataFrames, cleaning, grouping &amp; aggregation</p>
+</div>
 
-        <div class="card reveal">
-            <h3>Pandas Series</h3>
-            <p>A Series is a one-dimensional labeled array, like a single column in a spreadsheet. Each value has an associated index.</p>
-
-            <h4>Creating Series</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<div class="card reveal">
+<h3>Pandas Series</h3>
+<p>A Series is a one-dimensional labeled array, like a single column in a spreadsheet. Each value has an associated <strong>index</strong>.</p>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'0    g\n1    e\n2    e\n3    k\n4    s\ndtype: object')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
 <span class="kw">import</span> numpy <span class="kw">as</span> np
 
-<span class="cm"># Empty</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>()
-<span class="fn">print</span>(ser)  <span class="cm"># Series([], dtype: float64)</span>
-
-<span class="cm"># From NumPy array</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>(np.<span class="fn">array</span>([<span class="str">'g'</span>,<span class="str">'e'</span>,<span class="str">'e'</span>,<span class="str">'k'</span>,<span class="str">'s'</span>]))
-
 <span class="cm"># From list</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="str">'g'</span>, <span class="str">'e'</span>, <span class="str">'e'</span>, <span class="str">'k'</span>, <span class="str">'s'</span>])
+ser <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="str">'g'</span>,<span class="str">'e'</span>,<span class="str">'e'</span>,<span class="str">'k'</span>,<span class="str">'s'</span>])
+<span class="fn">print</span>(ser)
 
 <span class="cm"># From dictionary (keys become index)</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>({<span class="str">'Geeks'</span>: <span class="num">10</span>, <span class="str">'for'</span>: <span class="num">20</span>})
+ser2 <span class="op">=</span> pd.<span class="fn">Series</span>({<span class="str">'Geeks'</span>:<span class="num">10</span>, <span class="str">'for'</span>:<span class="num">20</span>})
 
-<span class="cm"># Using NumPy functions</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>(np.<span class="fn">linspace</span>(<span class="num">1</span>, <span class="num">10</span>, <span class="num">5</span>))
+<span class="cm"># With custom index</span>
+ser3 <span class="op">=</span> pd.<span class="fn">Series</span>(np.<span class="fn">arange</span>(<span class="num">3</span>,<span class="num">9</span>),
+              index<span class="op">=</span>[<span class="str">'a'</span>,<span class="str">'b'</span>,<span class="str">'c'</span>,<span class="str">'d'</span>,<span class="str">'e'</span>,<span class="str">'f'</span>])</code></pre>
+</div>
+</div>
 
-<span class="cm"># Using range with custom index</span>
-ser <span class="op">=</span> pd.<span class="fn">Series</span>(<span class="fn">range</span>(<span class="num">1</span>,<span class="num">20</span>,<span class="num">3</span>),
-              index<span class="op">=</span>[x <span class="kw">for</span> x <span class="kw">in</span> <span class="str">'abcdefg'</span>])</code></pre>
-            </div>
-        </div>
+<div class="card reveal">
+<h3>DataFrame &amp; Selection</h3>
+<p>A DataFrame is a 2D table with rows and columns.</p>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'    Name  Age\n0    Tom   20\n1   nick   21\n2  krish   19\n3   jack   18')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({
+    <span class="str">'Name'</span>:[<span class="str">'Tom'</span>,<span class="str">'nick'</span>,<span class="str">'krish'</span>,<span class="str">'jack'</span>],
+    <span class="str">'Age'</span>:[<span class="num">20</span>,<span class="num">21</span>,<span class="num">19</span>,<span class="num">18</span>]
+})
+<span class="fn">print</span>(df)
 
-        <div class="card reveal">
-            <h3>Accessing Series Elements</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>data <span class="op">=</span> np.<span class="fn">array</span>([<span class="str">'g'</span>,<span class="str">'e'</span>,<span class="str">'e'</span>,<span class="str">'k'</span>,<span class="str">'s'</span>,<span class="str">'f'</span>,
-                 <span class="str">'o'</span>,<span class="str">'r'</span>,<span class="str">'g'</span>,<span class="str">'e'</span>,<span class="str">'e'</span>,<span class="str">'k'</span>,<span class="str">'s'</span>])
-ser <span class="op">=</span> pd.<span class="fn">Series</span>(data)
+<span class="cm"># .loc[] - label based</span>
+<span class="cm"># .iloc[] - integer position</span>
+<span class="fn">print</span>(df.<span class="fn">loc</span>[<span class="num">0</span>])          <span class="cm"># First row by label</span>
+<span class="fn">print</span>(df.<span class="fn">iloc</span>[<span class="num">1</span>])         <span class="cm"># Second row by position</span>
+<span class="fn">print</span>(df[[<span class="str">'Name'</span>]])      <span class="cm"># Column selection</span></code></pre>
+</div>
+</div>
 
-<span class="fn">print</span>(ser[<span class="num">0</span>])      <span class="cm"># First element</span>
-<span class="fn">print</span>(ser[:<span class="num">5</span>])     <span class="cm"># First 5</span>
-<span class="fn">print</span>(ser[<span class="op">-</span><span class="num">10</span>:])    <span class="cm"># Last 10</span>
-
-<span class="cm"># Custom index labels</span>
-ser2 <span class="op">=</span> pd.<span class="fn">Series</span>(data,
-              index<span class="op">=</span>[<span class="num">10</span>,<span class="num">11</span>,<span class="num">12</span>,<span class="num">13</span>,<span class="num">14</span>,
-                      <span class="num">15</span>,<span class="num">16</span>,<span class="num">17</span>,<span class="num">18</span>,<span class="num">19</span>,
-                      <span class="num">20</span>,<span class="num">21</span>,<span class="num">22</span>])
-<span class="fn">print</span>(ser2[<span class="num">16</span>])     <span class="cm"># By label</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Series Index Attribute</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>data <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>],
-              index<span class="op">=</span>[<span class="str">'a'</span>,<span class="str">'b'</span>,<span class="str">'c'</span>,<span class="str">'d'</span>])
-<span class="fn">print</span>(<span class="str">"Original:"</span>, data.index)
-
-data.index <span class="op">=</span> [<span class="str">'w'</span>,<span class="str">'x'</span>,<span class="str">'y'</span>,<span class="str">'z'</span>]
-<span class="fn">print</span>(<span class="str">"Modified:\n"</span>, data)</code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Binary Operations on Series</h3>
-            <h4>Arithmetic</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>s1 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="num">10</span>,<span class="num">20</span>,<span class="num">30</span>], index<span class="op">=</span>[<span class="str">'a'</span>,<span class="str">'b'</span>,<span class="str">'c'</span>])
-s2 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>], index<span class="op">=</span>[<span class="str">'a'</span>,<span class="str">'b'</span>,<span class="str">'c'</span>])
-<span class="fn">print</span>(s1 <span class="op">+</span> s2)  <span class="cm"># Element-wise</span></code></pre>
-            </div>
-            <h4>Comparison</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>s1 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="num">10</span>,<span class="num">20</span>,<span class="num">30</span>])
-s2 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="num">10</span>,<span class="num">25</span>,<span class="num">30</span>])
-<span class="fn">print</span>(s1 <span class="op">==</span> s2)  <span class="cm"># Boolean Series</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Pandas DataFrame</h3>
-            <p>A two-dimensional table with rows and columns. Core components: <strong>Data</strong> (values), <strong>Rows</strong> (labels), <strong>Columns</strong> (labels).</p>
-
-            <h4>Creating DataFrames</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="cm"># Empty</span>
-df <span class="op">=</span> pd.<span class="fn">DataFrame</span>()
-
-<span class="cm"># From list</span>
-df <span class="op">=</span> pd.<span class="fn">DataFrame</span>([<span class="str">'Geeks'</span>, <span class="str">'For'</span>, <span class="str">'Geeks'</span>])
-
-<span class="cm"># From dictionary (keys -> columns)</span>
-data <span class="op">=</span> {<span class="str">'Name'</span>: [<span class="str">'Tom'</span>, <span class="str">'nick'</span>, <span class="str">'krish'</span>, <span class="str">'jack'</span>],
-        <span class="str">'Age'</span>: [<span class="num">20</span>, <span class="num">21</span>, <span class="num">19</span>, <span class="num">18</span>]}
-df <span class="op">=</span> pd.<span class="fn">DataFrame</span>(data)
-<span class="fn">print</span>(df)</code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>.loc[] vs .iloc[]</h3>
-            <h4><code>.loc[]</code> &mdash; Label-based</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>data <span class="op">=</span> pd.<span class="fn">read_csv</span>(<span class="str">"nba.csv"</span>, index_col<span class="op">=</span><span class="str">"Name"</span>)
-row <span class="op">=</span> data.<span class="fn">loc</span>[<span class="str">"Avery Bradley"</span>]</code></pre>
-            </div>
-            <h4><code>.iloc[]</code> &mdash; Integer position-based</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>row <span class="op">=</span> data.<span class="fn">iloc</span>[<span class="num">3</span>]
-
-<span class="cm"># Column selection by name</span>
-df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'Name'</span>:[<span class="str">'Jai'</span>,<span class="str">'Princi'</span>],
-                   <span class="str">'Age'</span>:[<span class="num">27</span>,<span class="num">24</span>],
-                   <span class="str">'Qualification'</span>:[<span class="str">'Msc'</span>,<span class="str">'MA'</span>]})
-<span class="fn">print</span>(df[[<span class="str">'Name'</span>, <span class="str">'Qualification'</span>]])</code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Handling Missing Data</h3>
-            <p>Missing data = <code>NaN</code> (Not a Number). Pandas provides powerful tools:</p>
-
-            <h4>Check: <code>isnull()</code> / <code>notnull()</code></h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>dict <span class="op">=</span> {<span class="str">'Score'</span>: [<span class="num">100</span>, <span class="num">90</span>, np.<span class="fn">nan</span>, <span class="num">95</span>]}
+<div class="card reveal">
+<h3>Handling Missing Data</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'   First Score  Second Score  Third Score\n0        False         False         True\n1        False         False        False\n2         True         False        False\n3        False          True        False')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>dict <span class="op">=</span> {<span class="str">'First Score'</span>:[<span class="num">100</span>,<span class="num">90</span>,np.<span class="fn">nan</span>,<span class="num">95</span>],
+        <span class="str">'Second Score'</span>:[<span class="num">30</span>,<span class="num">45</span>,<span class="num">56</span>,np.<span class="fn">nan</span>],
+        <span class="str">'Third Score'</span>:[np.<span class="fn">nan</span>,<span class="num">40</span>,<span class="num">80</span>,<span class="num">98</span>]}
 df <span class="op">=</span> pd.<span class="fn">DataFrame</span>(dict)
-<span class="fn">print</span>(df.<span class="fn">isnull</span>())  <span class="cm"># True where NaN</span></code></pre>
-            </div>
-            <h4>Fill: <code>fillna()</code></h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="fn">print</span>(df.<span class="fn">fillna</span>(<span class="num">0</span>))  <span class="cm"># Replace NaN with 0</span></code></pre>
-            </div>
-            <h4>Drop: <code>dropna()</code></h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>dict <span class="op">=</span> {<span class="str">'A'</span>:[<span class="num">100</span>, np.<span class="fn">nan</span>, <span class="num">95</span>],
-        <span class="str">'B'</span>:[<span class="num">30</span>, <span class="num">45</span>, np.<span class="fn">nan</span>]}
-df <span class="op">=</span> pd.<span class="fn">DataFrame</span>(dict)
-<span class="fn">print</span>(df.<span class="fn">dropna</span>())  <span class="cm"># Drop rows with any NaN</span></code></pre>
-            </div>
-        </div>
 
-        <div class="card reveal">
-            <h3>Binary Operations on DataFrames</h3>
-            <h4>Arithmetic</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>df1 <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'A'</span>:[<span class="num">10</span>,<span class="num">20</span>], <span class="str">'B'</span>:[<span class="num">40</span>,<span class="num">50</span>]})
-df2 <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'A'</span>:[<span class="num">1</span>,<span class="num">2</span>], <span class="str">'B'</span>:[<span class="num">4</span>,<span class="num">5</span>]})
-<span class="fn">print</span>(df1 <span class="op">-</span> df2)  <span class="cm"># Element-wise</span></code></pre>
-            </div>
-            <h4>Comparison &amp; Logical</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="fn">print</span>(df1 <span class="op">></span> df2)       <span class="cm"># Boolean DataFrame</span>
+<span class="cm"># Check missing</span>
+<span class="fn">print</span>(df.<span class="fn">isnull</span>())
 
-s1 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="kw">True</span>, <span class="kw">False</span>, <span class="kw">True</span>])
-s2 <span class="op">=</span> pd.<span class="fn">Series</span>([<span class="kw">False</span>, <span class="kw">False</span>, <span class="kw">True</span>])
-<span class="fn">print</span>(s1 <span class="op">&</span> s2)          <span class="cm"># Logical AND</span></code></pre>
-            </div>
-            <h4>Missing Data in Operations</h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>df1 <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'A'</span>:[<span class="num">1</span>,<span class="kw">None</span>], <span class="str">'B'</span>:[<span class="kw">None</span>,<span class="num">6</span>]})
-df2 <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'A'</span>:[<span class="num">1</span>,<span class="num">3</span>], <span class="str">'B'</span>:[<span class="num">5</span>,<span class="num">6</span>]})
-<span class="fn">print</span>(df1 <span class="op">+</span> df2)  <span class="cm"># NaN + value = NaN</span></code></pre>
-            </div>
-        </div>
+<span class="cm"># Fill with 0</span>
+<span class="fn">print</span>(df.<span class="fn">fillna</span>(<span class="num">0</span>))
 
-        <div class="card reveal">
-            <h3>Sorting DataFrames</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'Name'</span>:[<span class="str">'Alice'</span>,<span class="str">'Bob'</span>,<span class="str">'Charlie'</span>],
-                   <span class="str">'Age'</span>:[<span class="num">25</span>,<span class="num">30</span>,<span class="num">35</span>],
-                   <span class="str">'Score'</span>:[<span class="num">85</span>,<span class="num">90</span>,<span class="num">95</span>]})
+<span class="cm"># Drop rows with any NaN</span>
+<span class="fn">print</span>(df.<span class="fn">dropna</span>())</code></pre>
+</div>
+</div>
 
-<span class="cm"># Single column</span>
-df.<span class="fn">sort_values</span>(by<span class="op">=</span><span class="str">'Age'</span>, ascending<span class="op">=</span><span class="kw">False</span>)
-
-<span class="cm"># Multiple columns</span>
-df.<span class="fn">sort_values</span>(by<span class="op">=</span>[<span class="str">'Age'</span>, <span class="str">'Score'</span>])
-
-<span class="cm"># With NaN at top</span>
-df.<span class="fn">sort_values</span>(by<span class="op">=</span><span class="str">'Age'</span>, na_position<span class="op">=</span><span class="str">'first'</span>)
-
-<span class="cm"># By index</span>
-df.<span class="fn">sort_index</span>(ascending<span class="op">=</span><span class="kw">False</span>)</code></pre>
-            </div>
-            <p><code>sort_values()</code> parameters: <code>by</code>, <code>ascending</code>, <code>inplace</code>, <code>na_position</code> (<code>'first'</code> / <code>'last'</code>), <code>ignore_index</code>.</p>
-        </div>
-
-        <div class="card reveal">
-            <h3>Filtering DataFrames</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'Name'</span>:[<span class="str">'RACHEL'</span>,<span class="str">'MONICA'</span>,<span class="str">'PHOEBE'</span>],
-                   <span class="str">'Age'</span>:[<span class="num">30</span>,<span class="num">35</span>,<span class="num">37</span>],
-                   <span class="str">'Salary'</span>:[<span class="num">100000</span>,<span class="num">93000</span>,<span class="num">88000</span>],
-                   <span class="str">'JOB'</span>:[<span class="str">'DESIGNER'</span>,<span class="str">'CHEF'</span>,<span class="str">'MASUS'</span>]})
-
-<span class="cm"># Using .loc with conditions</span>
-filtered <span class="op">=</span> df.<span class="fn">loc</span>[(df[<span class="str">'Salary'</span>] <span class="op">>=</span> <span class="num">100000</span>) <span class="op">&</span>
-                (df[<span class="str">'Age'</span>] <span class="op"><</span> <span class="num">40</span>) <span class="op">&</span>
-                (df[<span class="str">'JOB'</span>].<span class="fn">str</span>.<span class="fn">startswith</span>(<span class="str">'D'</span>)),
-                [<span class="str">'Name'</span>, <span class="str">'JOB'</span>]]
-
-<span class="cm"># Using NumPy</span>
-vals <span class="op">=</span> np.<span class="fn">where</span>((df[<span class="str">'Salary'</span>] <span class="op">>=</span> <span class="num">100000</span>) <span class="op">&</span>
-               (df[<span class="str">'Age'</span>] <span class="op"><</span> <span class="num">40</span>))</code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Renaming &amp; Dropping</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="cm"># Rename columns</span>
-new_data <span class="op">=</span> data.<span class="fn">rename</span>(columns<span class="op">=</span>{
-    <span class="str">"Team"</span>: <span class="str">"Team Name"</span>,
-    <span class="str">"Salary"</span>: <span class="str">"Income"</span>
+<div class="card reveal">
+<h3>Filtering, Sorting &amp; Grouping</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'   Name  Age  Salary       JOB\n0  RACHEL   30  100000  DESIGNER')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code>df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({
+    <span class="str">'Name'</span>:[<span class="str">'RACHEL'</span>,<span class="str">'MONICA'</span>,<span class="str">'PHOEBE'</span>],
+    <span class="str">'Age'</span>:[<span class="num">30</span>,<span class="num">35</span>,<span class="num">37</span>],
+    <span class="str">'Salary'</span>:[<span class="num">100000</span>,<span class="num">93000</span>,<span class="num">88000</span>],
+    <span class="str">'JOB'</span>:[<span class="str">'DESIGNER'</span>,<span class="str">'CHEF'</span>,<span class="str">'MASUS'</span>]
 })
 
-<span class="cm"># Drop rows by index label</span>
-data.<span class="fn">drop</span>([<span class="str">"Avery Bradley"</span>, <span class="str">"John Holland"</span>],
-        inplace<span class="op">=</span><span class="kw">True</span>)
+<span class="cm"># Filter with multiple conditions</span>
+<span class="fn">print</span>(df.<span class="fn">loc</span>[(df[<span class="str">'Salary'</span>] <span class="op">&gt;=</span> <span class="num">100000</span>) <span class="op">&amp;</span>
+          (df[<span class="str">'Age'</span>] <span class="op">&lt;</span> <span class="num">40</span>) <span class="op">&amp;</span>
+          (df[<span class="str">'JOB'</span>].<span class="fn">str</span>.<span class="fn">startswith</span>(<span class="str">'D'</span>))])
 
-<span class="cm"># Drop columns</span>
-data.<span class="fn">drop</span>([<span class="str">"Team"</span>, <span class="str">"Weight"</span>], axis<span class="op">=</span><span class="num">1</span>,
-        inplace<span class="op">=</span><span class="kw">True</span>)</code></pre>
-            </div>
-        </div>
+<span class="cm"># Sort and group</span>
+<span class="fn">print</span>(df.<span class="fn">sort_values</span>(by<span class="op">=</span><span class="str">'Age'</span>))
+<span class="fn">print</span>(df.<span class="fn">groupby</span>(<span class="str">'JOB'</span>)[<span class="str">'Salary'</span>].<span class="fn">sum</span>())</code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>Grouping &amp; Aggregation</h3>
-            <p>Follows <strong>split-apply-combine</strong>: group data &rarr; apply calculation &rarr; combine results.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>df <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'car'</span>:[<span class="str">'Skoda'</span>,<span class="str">'Skoda'</span>,<span class="str">'Ford'</span>],
-                   <span class="str">'co2'</span>:[<span class="num">95</span>,<span class="num">90</span>,<span class="num">99</span>]})
-<span class="fn">print</span>(df.<span class="fn">groupby</span>([<span class="str">"car"</span>]).<span class="fn">mean</span>())
-
-<span class="cm"># Bakery example</span>
-orders <span class="op">=</span> pd.<span class="fn">DataFrame</span>({<span class="str">'Item'</span>:[<span class="str">'Cake'</span>,<span class="str">'Cake'</span>,<span class="str">'Bread'</span>],
-                     <span class="str">'Price'</span>:[<span class="num">250</span>,<span class="num">220</span>,<span class="num">80</span>]})
-<span class="fn">print</span>(orders.<span class="fn">groupby</span>(<span class="str">'Item'</span>)[<span class="str">'Price'</span>].<span class="fn">sum</span>())</code></pre>
-            </div>
-
-            <h4>Aggregation Functions</h4>
-            <div class="table-wrap">
-                <table class="tbl">
-                    <thead><tr><th>Function</th><th>Description</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>sum()</code></td><td>Sum of values</td></tr>
-                        <tr><td><code>mean()</code></td><td>Average</td></tr>
-                        <tr><td><code>min()</code></td><td>Minimum</td></tr>
-                        <tr><td><code>max()</code></td><td>Maximum</td></tr>
-                        <tr><td><code>count()</code></td><td>Count of values</td></tr>
-                        <tr><td><code>std()</code></td><td>Standard deviation</td></tr>
-                        <tr><td><code>size()</code></td><td>Size of group</td></tr>
-                        <tr><td><code>first()</code></td><td>First value</td></tr>
-                        <tr><td><code>last()</code></td><td>Last value</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h4>Multiple Aggregations with <code>agg()</code></h4>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>scores <span class="op">=</span> pd.<span class="fn">DataFrame</span>([[<span class="num">9</span>,<span class="num">4</span>,<span class="num">8</span>],[<span class="num">8</span>,<span class="num">10</span>,<span class="num">7</span>]],
-                     columns<span class="op">=</span>[<span class="str">'Maths'</span>,<span class="str">'English'</span>,<span class="str">'Science'</span>])
-<span class="fn">print</span>(scores.<span class="fn">sum</span>())          <span class="cm"># Column sums</span>
-<span class="fn">print</span>(scores.<span class="fn">describe</span>())    <span class="cm"># Full stats</span>
-<span class="fn">print</span>(scores.<span class="fn">agg</span>([<span class="str">'sum'</span>, <span class="str">'min'</span>, <span class="str">'max'</span>]))</code></pre>
-            </div>
-        </div>
-    </div>
+<!-- PANDAS QUIZ -->
+<div class="quiz-box reveal">
+<div class="quiz-title">&#x1F9F0; Quick Quiz &mdash; Pandas</div>
+<div id="quizPandas"></div>
+</div>
+</div>
 </section>
 
-<!-- ====== OOP ====== -->
+<!-- ===== OOP ===== -->
 <section class="content" id="oop">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge badge-oop">Topic 3</span>
-            <h2 class="section-title">Object-Oriented Programming <span>in Python</span></h2>
-            <p class="section-desc">Organizing code using classes and objects that represent real-world entities</p>
-        </div>
+<div class="container">
+<div class="section-header">
+    <span class="section-badge badge-oop">Topic 3</span>
+    <h2 class="section-title">Object-Oriented Programming <span>in Python</span></h2>
+    <p class="section-desc">Organizing code using classes and objects that represent real-world entities</p>
+</div>
 
-        <div class="card reveal">
-            <h3>What is OOP?</h3>
-            <p>Object-Oriented Programming (OOP) is a way of organizing code using <strong>objects</strong> and <strong>classes</strong> to represent real-world entities and their behavior.</p>
-            <ul>
-                <li>Organizes code into classes and objects</li>
-                <li>Supports <strong>encapsulation</strong> &mdash; group data and methods together</li>
-                <li>Enables <strong>inheritance</strong> for reusability</li>
-                <li>Allows <strong>polymorphism</strong> for flexible implementations</li>
-            </ul>
-        </div>
+<div class="card reveal">
+<h3>What is OOP?</h3>
+<p>Object-Oriented Programming organizes code using <strong>objects</strong> and <strong>classes</strong> to represent real-world entities.</p>
+<ul>
+<li>Organizes code into classes and objects</li>
+<li>Supports <strong>encapsulation</strong> &mdash; group data and methods together</li>
+<li>Enables <strong>inheritance</strong> for reusability</li>
+<li>Allows <strong>polymorphism</strong> for flexible implementations</li>
+</ul>
+</div>
 
-        <div class="card reveal">
-            <h3>Classes</h3>
-            <p>A <strong>class</strong> is a blueprint for creating objects. It defines attributes (variables) and methods (functions) that the objects will have.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Dog</span>:
+<div class="card reveal">
+<h3>Classes &amp; Objects</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Buddy\n3\nBuddy says Woof!\nHello, my name is Emil\n8')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Dog</span>:
     species <span class="op">=</span> <span class="str">"Canine"</span>  <span class="cm"># Class attribute</span>
-
     <span class="kw">def</span> <span class="fn">__init__</span>(self, name, age):
-        self.name <span class="op">=</span> name  <span class="cm"># Instance attribute</span>
+        self.name <span class="op">=</span> name    <span class="cm"># Instance attr</span>
         self.age <span class="op">=</span> age
-
     <span class="kw">def</span> <span class="fn">bark</span>(self):
-        <span class="fn">print</span>(<span class="str">f"</span>{self.name}<span class="str"> says Woof!"</span>)</code></pre>
-            </div>
-        </div>
+        <span class="fn">print</span>(<span class="str">f"</span>{self.name}<span class="str"> says Woof!"</span>)
 
-        <div class="card reveal">
-            <h3>Objects</h3>
-            <p>An <strong>object</strong> is an instance of a class. It has:</p>
-            <ul>
-                <li><strong>State</strong> &mdash; attributes (properties)</li>
-                <li><strong>Behavior</strong> &mdash; methods (actions)</li>
-                <li><strong>Identity</strong> &mdash; unique name for interaction</li>
-            </ul>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code>dog1 <span class="op">=</span> <span class="cn">Dog</span>(<span class="str">"Buddy"</span>, <span class="num">3</span>)
-dog2 <span class="op">=</span> <span class="cn">Dog</span>(<span class="str">"Max"</span>, <span class="num">5</span>)
-
-<span class="fn">print</span>(dog1.name)    <span class="cm"># Buddy</span>
-<span class="fn">print</span>(dog2.age)     <span class="cm"># 5</span>
-dog1.<span class="fn">bark</span>()         <span class="cm"># Buddy says Woof!</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Accessing Attributes Dynamically</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Employee</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, name<span class="op">=</span><span class="str">'Harsh'</span>, salary<span class="op">=</span><span class="num">25000</span>):
-        self.name <span class="op">=</span> name
-        self.salary <span class="op">=</span> salary
-
-emp <span class="op">=</span> <span class="cn">Employee</span>()
-
-<span class="fn">print</span>(<span class="fn">getattr</span>(emp, <span class="str">'name'</span>))   <span class="cm"># Harsh</span>
-<span class="fn">print</span>(<span class="fn">hasattr</span>(emp, <span class="str">'salary'</span>)) <span class="cm"># True</span>
-<span class="fn">setattr</span>(emp, <span class="str">'age'</span>, <span class="num">25</span>)     <span class="cm"># Add attribute</span>
-<span class="fn">delattr</span>(emp, <span class="str">'salary'</span>)     <span class="cm"># Delete attribute</span></code></pre>
-            </div>
-        </div>
-
-        <div class="card reveal">
-            <h3>Class Methods</h3>
-            <p>Methods are functions that belong to a class and define behavior.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Person</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, name):
-        self.name <span class="op">=</span> name
-    <span class="kw">def</span> <span class="fn">greet</span>(self):
-        <span class="fn">print</span>(<span class="str">"Hello, "</span> <span class="op">+</span> self.name)
-
-p1 <span class="op">=</span> <span class="cn">Person</span>(<span class="str">"Emil"</span>)
-p1.<span class="fn">greet</span>()  <span class="cm"># Hello, Emil</span>
+dog1 <span class="op">=</span> <span class="cn">Dog</span>(<span class="str">"Buddy"</span>, <span class="num">3</span>)
+<span class="fn">print</span>(dog1.name)
+<span class="fn">print</span>(dog1.age)
+dog1.<span class="fn">bark</span>()
 
 <span class="kw">class</span> <span class="cn">Calculator</span>:
     <span class="kw">def</span> <span class="fn">add</span>(self, a, b): <span class="kw">return</span> a <span class="op">+</span> b
-    <span class="kw">def</span> <span class="fn">multiply</span>(self, a, b): <span class="kw">return</span> a <span class="op">*</span> b
-
 calc <span class="op">=</span> <span class="cn">Calculator</span>()
-<span class="fn">print</span>(calc.<span class="fn">add</span>(<span class="num">5</span>, <span class="num">3</span>))       <span class="cm"># 8</span></code></pre>
-            </div>
-        </div>
+<span class="fn">print</span>(calc.<span class="fn">add</span>(<span class="num">5</span>, <span class="num">3</span>))</code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>The __init__() Method</h3>
-            <p>A built-in method automatically called when an object is created. Used to assign values to object properties.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Person</span>:
+<div class="card reveal">
+<h3>The <code>__init__</code> Method &amp; <code>self</code></h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Emil 18\nTobias 25')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Person</span>:
     <span class="kw">def</span> <span class="fn">__init__</span>(self, name, age<span class="op">=</span><span class="num">18</span>):
         self.name <span class="op">=</span> name
         self.age <span class="op">=</span> age
 
 p1 <span class="op">=</span> <span class="cn">Person</span>(<span class="str">"Emil"</span>)
 p2 <span class="op">=</span> <span class="cn">Person</span>(<span class="str">"Tobias"</span>, <span class="num">25</span>)
-<span class="fn">print</span>(p1.name, p1.age)  <span class="cm"># Emil 18</span>
-<span class="fn">print</span>(p2.name, p2.age)  <span class="cm"># Tobias 25</span></code></pre>
-            </div>
-        </div>
+<span class="fn">print</span>(p1.name, p1.age)
+<span class="fn">print</span>(p2.name, p2.age)</code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>The <code>self</code> Keyword</h3>
-            <p><code>self</code> refers to the current instance of the class. It must be the first parameter of any method. The name <code>self</code> is a convention, but it can be anything.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Person</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(myobject, name):
-        myobject.name <span class="op">=</span> name
-    <span class="kw">def</span> <span class="fn">greet</span>(abc):
-        <span class="fn">print</span>(<span class="str">"Hello, "</span> <span class="op">+</span> abc.name)
+<div class="card card-highlight reveal">
+<h3>&#x1F4AF; Four Pillars of OOP</h3>
+<p>The foundation of structured, reusable, maintainable software:</p>
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 200" width="700" height="200">
+<rect x="20" y="20" width="140" height="160" rx="16" fill="rgba(108,159,255,0.08)" stroke="var(--numpy)" stroke-width="2"/>
+<rect x="190" y="20" width="140" height="160" rx="16" fill="rgba(255,107,74,0.08)" stroke="var(--pandas)" stroke-width="2"/>
+<rect x="360" y="20" width="140" height="160" rx="16" fill="rgba(74,222,128,0.08)" stroke="var(--oop)" stroke-width="2"/>
+<rect x="530" y="20" width="140" height="160" rx="16" fill="rgba(192,132,252,0.08)" stroke="var(--inherit)" stroke-width="2"/>
+<text x="90" y="70" text-anchor="middle" fill="var(--numpy)" font-size="32">&#x1F466;&#x200D;&#x1F393;</text>
+<text x="90" y="105" text-anchor="middle" fill="var(--text)" font-size="16" font-weight="700">Inheritance</text>
+<text x="90" y="130" text-anchor="middle" fill="var(--text2)" font-size="11">Child acquires</text>
+<text x="90" y="148" text-anchor="middle" fill="var(--text2)" font-size="11">parent properties</text>
+<text x="260" y="70" text-anchor="middle" fill="var(--pandas)" font-size="32">&#x1F3A8;</text>
+<text x="260" y="105" text-anchor="middle" fill="var(--text)" font-size="16" font-weight="700">Polymorphism</text>
+<text x="260" y="130" text-anchor="middle" fill="var(--text2)" font-size="11">Same interface</text>
+<text x="260" y="148" text-anchor="middle" fill="var(--text2)" font-size="11">different behavior</text>
+<text x="430" y="70" text-anchor="middle" fill="var(--oop)" font-size="32">&#x1F510;</text>
+<text x="430" y="105" text-anchor="middle" fill="var(--text)" font-size="16" font-weight="700">Encapsulation</text>
+<text x="430" y="130" text-anchor="middle" fill="var(--text2)" font-size="11">Bundle data &amp;</text>
+<text x="430" y="148" text-anchor="middle" fill="var(--text2)" font-size="11">methods together</text>
+<text x="600" y="70" text-anchor="middle" fill="var(--inherit)" font-size="32">&#x1F4A1;</text>
+<text x="600" y="105" text-anchor="middle" fill="var(--text)" font-size="16" font-weight="700">Abstraction</text>
+<text x="600" y="130" text-anchor="middle" fill="var(--text2)" font-size="11">Hide complexity</text>
+<text x="600" y="148" text-anchor="middle" fill="var(--text2)" font-size="11">show essentials</text>
+</svg>
+</div>
+<p class="diagram-caption">The four pillars of Object-Oriented Programming</p>
+</div>
 
-p1 <span class="op">=</span> <span class="cn">Person</span>(<span class="str">"Emil"</span>, <span class="num">36</span>)
-p1.<span class="fn">greet</span>()  <span class="cm"># Hello, Emil</span>
-
-<span class="cm"># Calling another method via self</span>
-<span class="kw">class</span> <span class="cn">Person</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, name):
+<div class="card reveal">
+<h3>Dynamic Attribute Access</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Harsh\nTrue\n25\nAttributeError')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Employee</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name<span class="op">=</span><span class="str">'Harsh'</span>, salary<span class="op">=</span><span class="num">25000</span>):
         self.name <span class="op">=</span> name
-    <span class="kw">def</span> <span class="fn">greet</span>(self):
-        <span class="kw">return</span> <span class="str">"Hello, "</span> <span class="op">+</span> self.name
-    <span class="kw">def</span> <span class="fn">welcome</span>(self):
-        msg <span class="op">=</span> self.<span class="fn">greet</span>()
-        <span class="fn">print</span>(msg <span class="op">+</span> <span class="str">"! Welcome!"</span>)</code></pre>
-            </div>
-        </div>
+        self.salary <span class="op">=</span> salary
 
-        <div class="card card-highlight reveal">
-            <h3>&#x1F4AF; Four Pillars of OOP</h3>
-            <p>The foundation for designing structured, reusable, and maintainable software:</p>
-            <div class="pillars">
-                <div class="pillar">
-                    <span class="pillar-icon">&#x1F466;&#x200D;&#x1F393;</span>
-                    <h4>Inheritance</h4>
-                    <p>Child class acquires parent class properties &amp; methods</p>
-                </div>
-                <div class="pillar">
-                    <span class="pillar-icon">&#x1F3A8;</span>
-                    <h4>Polymorphism</h4>
-                    <p>Same interface, different implementations</p>
-                </div>
-                <div class="pillar">
-                    <span class="pillar-icon">&#x1F510;</span>
-                    <h4>Encapsulation</h4>
-                    <p>Bundle data &amp; methods; hide internal state</p>
-                </div>
-                <div class="pillar">
-                    <span class="pillar-icon">&#x1F4A1;</span>
-                    <h4>Abstraction</h4>
-                    <p>Hide complexity, show only essentials</p>
-                </div>
-            </div>
-        </div>
-    </div>
+emp <span class="op">=</span> <span class="cn">Employee</span>()
+<span class="fn">print</span>(<span class="fn">getattr</span>(emp, <span class="str">'name'</span>))     <span class="cm"># Harsh</span>
+<span class="fn">print</span>(<span class="fn">hasattr</span>(emp, <span class="str">'salary'</span>))   <span class="cm"># True</span>
+<span class="fn">setattr</span>(emp, <span class="str">'age'</span>, <span class="num">25</span>)
+<span class="fn">print</span>(emp.age)                     <span class="cm"># 25</span>
+<span class="fn">delattr</span>(emp, <span class="str">'salary'</span>)
+<span class="fn">print</span>(emp.salary)                  <span class="cm"># Error!</span></code></pre>
+</div>
+</div>
+
+<!-- OOP QUIZ -->
+<div class="quiz-box reveal">
+<div class="quiz-title">&#x1F9F0; Quick Quiz &mdash; OOP</div>
+<div id="quizOOP"></div>
+</div>
+</div>
 </section>
 
-<!-- ====== INHERITANCE ====== -->
+<!-- ===== INHERITANCE ===== -->
 <section class="content" id="inheritance">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-badge badge-inherit">Deep Dive</span>
-            <h2 class="section-title">Inheritance <span>in Python</span></h2>
-            <p class="section-desc">Acquiring properties and methods from a parent class — promoting code reuse and hierarchy</p>
-        </div>
+<div class="container">
+<div class="section-header">
+    <span class="section-badge badge-inherit">Deep Dive</span>
+    <h2 class="section-title">Inheritance <span>in Python</span></h2>
+    <p class="section-desc">Acquiring properties from a parent class &mdash; code reuse, hierarchy &amp; extensibility</p>
+</div>
 
-        <div class="card reveal">
-            <h3>Why Inheritance?</h3>
-            <ul>
-                <li><strong>Code reusability</strong> &mdash; share attributes across classes</li>
-                <li><strong>Real-world modeling</strong> &mdash; e.g. Animal &rarr; Dog</li>
-                <li><strong>Easy maintenance</strong> &mdash; update parent, fix all children</li>
-                <li><strong>Method overriding</strong> &mdash; customize behavior in subclasses</li>
-                <li><strong>Polymorphism</strong> &mdash; work with different types uniformly</li>
-            </ul>
-        </div>
+<div class="card reveal">
+<h3>Why Inheritance?</h3>
+<ul>
+<li><strong>Code reusability</strong> &mdash; share attributes across classes</li>
+<li><strong>Real-world modeling</strong> &mdash; e.g. Animal &rarr; Dog</li>
+<li><strong>Easy maintenance</strong> &mdash; update parent, fix all children</li>
+<li><strong>Method overriding</strong> &mdash; customize behavior</li>
+</ul>
+</div>
 
-        <div class="card reveal">
-            <h3>Basic Example</h3>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Animal</span>:
+<div class="card reveal">
+<h3>Basic Inheritance</h3>
+<div class="code-block">
+<div class="code-header"><div class="code-header-left"><span>Python</span><button class="run-btn" onclick="showOutput(this,'Animal name: Buddy\nBuddy barks')">&#x25B6; Run</button></div><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Animal</span>:
     <span class="kw">def</span> <span class="fn">__init__</span>(self, name):
         self.name <span class="op">=</span> name
     <span class="kw">def</span> <span class="fn">info</span>(self):
-        <span class="fn">print</span>(<span class="str">f"Animal: {self.name}"</span>)
+        <span class="fn">print</span>(<span class="str">f"Animal name: {self.name}"</span>)
 
-<span class="kw">class</span> <span class="cn">Dog</span>(Animal):
+<span class="kw">class</span> <span class="cn">Dog</span>(Animal):  <span class="cm"># Dog inherits Animal</span>
     <span class="kw">def</span> <span class="fn">sound</span>(self):
         <span class="fn">print</span>(<span class="str">f"{self.name} barks"</span>)
 
 d <span class="op">=</span> <span class="cn">Dog</span>(<span class="str">"Buddy"</span>)
-d.<span class="fn">info</span>()    <span class="cm"># Animal: Buddy (inherited)</span>
-d.<span class="fn">sound</span>()   <span class="cm"># Buddy barks</span></code></pre>
-            </div>
-        </div>
+d.<span class="fn">info</span>()    <span class="cm"># Inherited method</span>
+d.<span class="fn">sound</span>()   <span class="cm"># Own method</span></code></pre>
+</div>
+</div>
 
-        <div class="card reveal">
-            <h3>1. Single Inheritance</h3>
-            <p>One derived class inherits from one parent class.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Parent</span>:
-    <span class="kw">def</span> <span class="fn">func1</span>(self):
-        <span class="fn">print</span>(<span class="str">"Parent class"</span>)
+<div class="card reveal">
+<h3>Inheritance Types &mdash; Visual Diagram</h3>
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 400" width="700" height="400">
+<!-- Single Inheritance -->
+<text x="120" y="30" text-anchor="middle" fill="var(--numpy)" font-size="16" font-weight="700">Single Inheritance</text>
+<rect x="40" y="50" width="160" height="50" rx="10" fill="rgba(108,159,255,0.15)" stroke="var(--numpy)" stroke-width="2"/>
+<text x="120" y="82" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Parent Class</text>
+<line x1="120" y1="100" x2="120" y2="130" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="114,128 120,138 126,128" fill="var(--text2)"/>
+<rect x="40" y="140" width="160" height="50" rx="10" fill="rgba(108,159,255,0.08)" stroke="var(--numpy)" stroke-width="1.5"/>
+<text x="120" y="172" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Child Class</text>
+
+<!-- Multiple Inheritance -->
+<text x="350" y="30" text-anchor="middle" fill="var(--pandas)" font-size="16" font-weight="700">Multiple Inheritance</text>
+<rect x="270" y="50" width="160" height="50" rx="10" fill="rgba(255,107,74,0.15)" stroke="var(--pandas)" stroke-width="2"/>
+<text x="350" y="82" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Father</text>
+<rect x="270" y="140" width="160" height="50" rx="10" fill="rgba(255,107,74,0.15)" stroke="var(--pandas)" stroke-width="2"/>
+<text x="350" y="172" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Mother</text>
+<line x1="310" y1="100" x2="310" y2="140" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="304,138 310,148 316,138" fill="var(--text2)"/>
+<line x1="390" y1="100" x2="390" y2="140" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="384,138 390,148 396,138" fill="var(--text2)"/>
+<rect x="270" y="190" width="160" height="50" rx="10" fill="rgba(255,107,74,0.08)" stroke="var(--pandas)" stroke-width="1.5"/>
+<text x="350" y="222" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Son (Father, Mother)</text>
+<line x1="310" y1="190" x2="310" y2="230" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<line x1="390" y1="190" x2="390" y2="230" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="304,228 310,238 316,228" fill="var(--text2)"/>
+<polygon points="384,228 390,238 396,228" fill="var(--text2)"/>
+
+<!-- Multilevel Inheritance -->
+<text x="600" y="30" text-anchor="middle" fill="var(--oop)" font-size="16" font-weight="700">Multilevel Inheritance</text>
+<rect x="520" y="50" width="160" height="40" rx="10" fill="rgba(74,222,128,0.15)" stroke="var(--oop)" stroke-width="2"/>
+<text x="600" y="77" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Grandfather</text>
+<line x1="600" y1="90" x2="600" y2="110" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="594,108 600,118 606,108" fill="var(--text2)"/>
+<rect x="520" y="120" width="160" height="40" rx="10" fill="rgba(74,222,128,0.1)" stroke="var(--oop)" stroke-width="1.5"/>
+<text x="600" y="147" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Father</text>
+<line x1="600" y1="160" x2="600" y2="180" stroke="var(--text2)" stroke-width="2" stroke-dasharray="4"/>
+<polygon points="594,178 600,188 606,178" fill="var(--text2)"/>
+<rect x="520" y="190" width="160" height="40" rx="10" fill="rgba(74,222,128,0.08)" stroke="var(--oop)" stroke-width="1.5"/>
+<text x="600" y="217" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Son</text>
+
+<!-- Horizontal labels -->
+<text x="120" y="260" text-anchor="middle" fill="var(--text2)" font-size="11">One parent, one child</text>
+<text x="350" y="260" text-anchor="middle" fill="var(--text2)" font-size="11">Multiple parents, one child</text>
+<text x="600" y="260" text-anchor="middle" fill="var(--text2)" font-size="11">Chain of inheritance</text>
+</svg>
+</div>
+<p class="diagram-caption">Three types of inheritance: Single &larr; Multiple &larr; Multilevel</p>
+</div>
+
+<div class="card reveal">
+<h3>3 Types of Inheritance</h3>
+
+<h4>1. Single Inheritance</h4>
+<div class="code-block">
+<div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Parent</span>:
+    <span class="kw">def</span> <span class="fn">func1</span>(self): <span class="fn">print</span>(<span class="str">"Parent"</span>)
 
 <span class="kw">class</span> <span class="cn">Child</span>(Parent):
-    <span class="kw">def</span> <span class="fn">func2</span>(self):
-        <span class="fn">print</span>(<span class="str">"Child class"</span>)
+    <span class="kw">def</span> <span class="fn">func2</span>(self): <span class="fn">print</span>(<span class="str">"Child"</span>)
 
 obj <span class="op">=</span> <span class="cn">Child</span>()
-obj.<span class="fn">func1</span>()  <span class="cm"># Parent class</span>
-obj.<span class="fn">func2</span>()  <span class="cm"># Child class</span></code></pre>
-            </div>
-        </div>
+obj.<span class="fn">func1</span>()  <span class="cm"># Parent</span>
+obj.<span class="fn">func2</span>()  <span class="cm"># Child</span></code></pre>
+</div>
 
-        <div class="card reveal">
-            <h3>2. Multiple Inheritance</h3>
-            <p>A class inherits from more than one base class, gaining features from all.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Mother</span>:
-    mothername <span class="op">=</span> <span class="str">""</span>
-    <span class="kw">def</span> <span class="fn">mother</span>(self):
-        <span class="fn">print</span>(self.mothername)
-
-<span class="kw">class</span> <span class="cn">Father</span>:
+<h4>2. Multiple Inheritance</h4>
+<div class="code-block">
+<div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Father</span>:
     fathername <span class="op">=</span> <span class="str">""</span>
-    <span class="kw">def</span> <span class="fn">father</span>(self):
-        <span class="fn">print</span>(self.fathername)
+
+<span class="kw">class</span> <span class="cn">Mother</span>:
+    mothername <span class="op">=</span> <span class="str">""</span>
 
 <span class="kw">class</span> <span class="cn">Son</span>(Mother, Father):
     <span class="kw">def</span> <span class="fn">parents</span>(self):
@@ -1090,95 +879,300 @@ obj.<span class="fn">func2</span>()  <span class="cm"># Child class</span></code
 s1 <span class="op">=</span> <span class="cn">Son</span>()
 s1.fathername <span class="op">=</span> <span class="str">"RAM"</span>
 s1.mothername <span class="op">=</span> <span class="str">"SITA"</span>
-s1.<span class="fn">parents</span>()
-<span class="cm"># Father: RAM</span>
-<span class="cm"># Mother: SITA</span></code></pre>
-            </div>
-        </div>
+s1.<span class="fn">parents</span>()</code></pre>
+</div>
 
-        <div class="card reveal">
-            <h3>3. Multilevel Inheritance</h3>
-            <p>Features are passed down a chain: Grandparent &rarr; Parent &rarr; Child.</p>
-            <div class="code-block">
-                <div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
-                <pre><code><span class="kw">class</span> <span class="cn">Grandfather</span>:
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, grandfathername):
-        self.grandfathername <span class="op">=</span> grandfathername
+<h4>3. Multilevel Inheritance</h4>
+<div class="code-block">
+<div class="code-header"><span>Python</span><button class="copy-btn" onclick="copy(this)">Copy</button></div>
+<pre><code><span class="kw">class</span> <span class="cn">Grandfather</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name):
+        self.grandfathername <span class="op">=</span> name
 
 <span class="kw">class</span> <span class="cn">Father</span>(Grandfather):
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, fathername, grandfathername):
-        self.fathername <span class="op">=</span> fathername
-        <span class="cn">Grandfather</span>.<span class="fn">__init__</span>(self, grandfathername)
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, fname, gname):
+        self.fathername <span class="op">=</span> fname
+        <span class="cn">Grandfather</span>.<span class="fn">__init__</span>(self, gname)
 
 <span class="kw">class</span> <span class="cn">Son</span>(Father):
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, sonname, fathername, grandfathername):
-        self.sonname <span class="op">=</span> sonname
-        <span class="cn">Father</span>.<span class="fn">__init__</span>(self, fathername, grandfathername)
-    <span class="kw">def</span> <span class="fn">print_name</span>(self):
-        <span class="fn">print</span>(<span class="str">"Grandfather:"</span>, self.grandfathername)
-        <span class="fn">print</span>(<span class="str">"Father:"</span>, self.fathername)
-        <span class="fn">print</span>(<span class="str">"Son:"</span>, self.sonname)
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, sname, fname, gname):
+        self.sonname <span class="op">=</span> sname
+        <span class="cn">Father</span>.<span class="fn">__init__</span>(self, fname, gname)
+    <span class="kw">def</span> <span class="fn">show</span>(self):
+        <span class="fn">print</span>(<span class="str">f"Grandfather: {self.grandfathername}"</span>)
+        <span class="fn">print</span>(<span class="str">f"Father: {self.fathername}"</span>)
+        <span class="fn">print</span>(<span class="str">f"Son: {self.sonname}"</span>)
 
-s1 <span class="op">=</span> <span class="cn">Son</span>(<span class="str">"Prince"</span>, <span class="str">"Rampal"</span>, <span class="str">"Lal mani"</span>)
-s1.<span class="fn">print_name</span>()
-<span class="cm"># Grandfather: Lal mani</span>
-<span class="cm"># Father: Rampal</span>
-<span class="cm"># Son: Prince</span></code></pre>
-            </div>
-        </div>
-    </div>
+s <span class="op">=</span> <span class="cn">Son</span>(<span class="str">"Prince"</span>,<span class="str">"Rampal"</span>,<span class="str">"Lal mani"</span>)
+s.<span class="fn">show</span>()</code></pre>
+</div>
+</div>
+
+<!-- INHERITANCE QUIZ -->
+<div class="quiz-box reveal">
+<div class="quiz-title">&#x1F9F0; Quick Quiz &mdash; Inheritance</div>
+<div id="quizInherit"></div>
+</div>
+</div>
 </section>
 
-<!-- ====== CTA ====== -->
+<!-- CTA -->
 <section class="cta">
-    <div class="container">
-        <h2>Ready to Code?</h2>
-        <p>Open your Python editor and start experimenting with these examples. The best way to learn is by doing!</p>
-        <div class="hero-actions">
-            <a href="#numpy" class="btn btn-primary">Start with NumPy &rarr;</a>
-            <a href="#" class="btn btn-outline" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Back to Top &uarr;</a>
-        </div>
-    </div>
+<div class="container">
+<h2>Ready to Code?</h2>
+<p>Open your Python editor and start experimenting with these examples!</p>
+<div class="hero-actions">
+    <a href="#numpy" class="btn btn-primary">Start with NumPy &rarr;</a>
+    <button class="btn btn-outline" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top &uarr;</button>
+</div>
+</div>
 </section>
 
 <footer>
-    <p>Unit V &mdash; Data Analysis with Python &amp; Object-Oriented Programming</p>
-    <p class="small">Built for learning &amp; teaching &hearts;</p>
+<p>Unit V &mdash; Data Analysis with Python &amp; Object-Oriented Programming</p>
+<p class="small">Built for learning &amp; teaching &hearts;</p>
 </footer>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&uarr;</button>
 
 <script>
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 500);
+// ========== THEME ==========
+const themeBtn = document.getElementById('themeBtn');
+let dark = localStorage.getItem('theme') !== 'light';
+function applyTheme(){
+    document.body.classList.toggle('light',!dark);
+    themeBtn.textContent = dark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+    localStorage.setItem('theme',dark?'dark':'light');
+}
+applyTheme();
+themeBtn.addEventListener('click',()=>{dark=!dark;applyTheme()});
+
+// ========== FONT SIZE ==========
+document.getElementById('fontDec').addEventListener('click',()=>{
+    let sz=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
+    if(sz>12){document.documentElement.style.setProperty('--font-size',(sz-2)+'px')}
+});
+document.getElementById('fontInc').addEventListener('click',()=>{
+    let sz=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--font-size'));
+    if(sz<24){document.documentElement.style.setProperty('--font-size',(sz+2)+'px')}
 });
 
-// Mobile nav
-const navToggle = document.getElementById('navToggle');
-const navItems = document.getElementById('navItems');
-navToggle.addEventListener('click', () => navItems.classList.toggle('active'));
-navItems.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navItems.classList.remove('active')));
+// ========== NAV ==========
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',window.scrollY>50);
+    document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>500);
+    updateActiveTOC();
+});
+document.getElementById('navToggle').addEventListener('click',()=>{
+    document.getElementById('navItems').classList.toggle('active');
+});
+document.querySelectorAll('#navItems a').forEach(a=>a.addEventListener('click',()=>{
+    document.getElementById('navItems').classList.remove('active');
+}));
 
-// Copy code
-function copy(btn) {
-    const code = btn.closest('.code-block').querySelector('code').textContent;
-    navigator.clipboard.writeText(code).then(() => {
-        const orig = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.style.color = '#4ade80';
-        setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
+// ========== SIDEBAR ==========
+const sidebar=document.getElementById('sidebar');
+document.getElementById('tocBtn').addEventListener('click',()=>sidebar.classList.toggle('open'));
+document.querySelectorAll('.toc-item').forEach(a=>a.addEventListener('click',()=>{
+    if(window.innerWidth<=900)sidebar.classList.remove('open');
+}));
+function updateActiveTOC(){
+    const sections=['topics','numpy','pandas','oop','inheritance'];
+    let current='topics';
+    sections.forEach(s=>{
+        const el=document.getElementById(s);
+        if(el&&window.scrollY>=el.offsetTop-200)current=s;
+    });
+    document.querySelectorAll('.toc-item').forEach(a=>{
+        a.classList.toggle('active',a.dataset.section===current);
     });
 }
 
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+// ========== PROGRESS ==========
+function markDone(section){
+    const chk=document.getElementById('chk-'+section);
+    if(chk)chk.classList.add('done');
+    const done=document.querySelectorAll('.toc-check.done').length;
+    const total=document.querySelectorAll('.toc-check').length;
+    const pct=Math.round(done/total*100);
+    document.getElementById('progressBar').style.width=pct+'%';
+    document.getElementById('progressPct').textContent=pct+'% complete';
+    localStorage.setItem('progress',JSON.stringify(
+        Array.from(document.querySelectorAll('.toc-check')).map(c=>c.id.replace('chk-',''))
+    ));
+}
+document.querySelectorAll('.toc-check').forEach(c=>{
+    if(JSON.parse(localStorage.getItem('progress')||'[]').includes(c.id.replace('chk-','')))
+        c.classList.add('done');
+    markDone();
+});
 
+// ========== SEARCH ==========
+const searchOverlay=document.getElementById('searchOverlay');
+document.getElementById('searchBtn').addEventListener('click',()=>{
+    searchOverlay.classList.add('active');
+    document.getElementById('searchInput').value='';
+    document.getElementById('searchResults').innerHTML='';
+    setTimeout(()=>document.getElementById('searchInput').focus(),100);
+});
+searchOverlay.addEventListener('click',e=>{if(e.target===searchOverlay)searchOverlay.classList.remove('active')});
+document.getElementById('searchInput').addEventListener('input',function(){
+    const q=this.value.toLowerCase().trim();
+    if(!q){document.getElementById('searchResults').innerHTML='';return}
+    const sections=document.querySelectorAll('.card, .section-header, .topic-card');
+    let results=[];
+    sections.forEach(s=>{
+        const txt=s.textContent.toLowerCase();
+        if(txt.includes(q)){
+            const h=s.querySelector('h3,h2,h4')||s;
+            results.push({title:h.textContent.trim().slice(0,80),text:s.textContent.trim().slice(0,120)});
+        }
+    });
+    const html=results.slice(0,10).map(r=>`<div class="search-result"><h4>${r.title}</h4><p>${r.text}</p></div>`).join('')||'<div class="search-result"><p style="color:var(--text2)">No results found</p></div>';
+    document.getElementById('searchResults').innerHTML=html;
+});
+
+// ========== PRESENTATION MODE ==========
+const presOverlay=document.getElementById('presOverlay');
+const presContent=document.getElementById('presContent');
+const presCounter=document.getElementById('presCounter');
+let presSlides=[],presIdx=0;
+function buildSlides(){
+    presSlides=[];
+    const sections=document.querySelectorAll('.content, .hero');
+    sections.forEach((sec,i)=>{
+        const header=sec.querySelector('.section-header');
+        const title=header?header.querySelector('h2')||header.querySelector('h1'):sec.querySelector('h1');
+        const desc=header?header.querySelector('.section-desc'):null;
+        const cards=sec.querySelectorAll('.card');
+        let html=`<h2>${title?title.textContent:'Section '+(i+1)}</h2>${desc?'<p>'+desc.textContent+'</p>':''}`;
+        presSlides.push({html,title:title?title.textContent.trim():'Slide'});
+        cards.forEach(c=>{
+            const h3=c.querySelector('h3');
+            const ps=c.querySelectorAll('p');
+            const code=c.querySelector('.code-block');
+            let html2=`<h3 style="margin-bottom:12px">${h3?h3.textContent:'Card'}</h3>`;
+            ps.forEach(p=>{if(p.textContent.length<200)html2+=`<p>${p.textContent}</p>`});
+            if(code)html2+=code.outerHTML;
+            presSlides.push({html:html2,title:h3?h3.textContent.trim():'Detail'});
+        });
+    });
+}
+function showPresSlide(){
+    if(!presSlides.length)buildSlides();
+    presContent.innerHTML=presSlides[presIdx].html;
+    presCounter.textContent=`${presIdx+1} / ${presSlides.length}`;
+    document.getElementById('presPrev').style.opacity=presIdx===0?'.3':'1';
+    document.getElementById('presNext').style.opacity=presIdx===presSlides.length-1?'.3':'1';
+}
+document.getElementById('presBtn').addEventListener('click',()=>{buildSlides();presIdx=0;showPresSlide();presOverlay.classList.add('active')});
+document.getElementById('heroPresBtn').addEventListener('click',()=>{buildSlides();presIdx=0;showPresSlide();presOverlay.classList.add('active')});
+document.getElementById('presClose').addEventListener('click',()=>presOverlay.classList.remove('active'));
+document.getElementById('presPrev').addEventListener('click',()=>{if(presIdx>0){presIdx--;showPresSlide()}});
+document.getElementById('presNext').addEventListener('click',()=>{if(presIdx<presSlides.length-1){presIdx++;showPresSlide()}});
+
+// ========== CODE OUTPUT ==========
+let outId=0;
+function showOutput(btn,output){
+    const block=btn.closest('.code-block');
+    let out=block.querySelector('.code-output');
+    if(!out){
+        out=document.createElement('div');
+        out.className='code-output';
+        block.appendChild(out);
+    }
+    out.classList.toggle('show');
+    out.textContent=out.classList.contains('show')?output:'';
+    btn.textContent=out.classList.contains('show')?'\u25B6 Hide':' \u25B6 Run';
+}
+
+// ========== COPY ==========
+function copy(btn){
+    const code=btn.closest('.code-block').querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(()=>{
+        const orig=btn.textContent;
+        btn.textContent='Copied!';
+        btn.style.color='#4ade80';
+        setTimeout(()=>{btn.textContent=orig;btn.style.color=''},2000);
+    });
+}
+
+// ========== SCROLL REVEAL ==========
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const sec=e.target.closest('[id]');if(sec){markDone(sec.id)}}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ========== KEYBOARD SHORTCUTS ==========
+document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT')return;
+    if(e.key==='s'||e.key==='S'){e.preventDefault();document.getElementById('searchBtn').click()}
+    if(e.key==='p'||e.key==='P'){e.preventDefault();document.getElementById('presBtn').click()}
+    if(e.key==='d'||e.key==='D'){e.preventDefault();themeBtn.click()}
+    if(e.key==='Escape'){searchOverlay.classList.remove('active');presOverlay.classList.remove('active')}
+    if(e.key==='ArrowRight'&&presOverlay.classList.contains('active'))document.getElementById('presNext').click();
+    if(e.key==='ArrowLeft'&&presOverlay.classList.contains('active'))document.getElementById('presPrev').click();
+});
+
+// ========== QUIZZES ==========
+const quizzes={
+    quizNumPy:{
+        q:'What does arr.shape return for a 2x3 NumPy array?',
+        opts:[{l:'(2, 3)',c:true},{l:'(3, 2)',c:false},{l:'6',c:false},{l:'2',c:false}]
+    },
+    quizPandas:{
+        q:'Which method is used to fill missing values in a DataFrame?',
+        opts:[{l:'fillna()',c:true},{l:'dropna()',c:false},{l:'isnull()',c:false},{l:'sort_values()',c:false}]
+    },
+    quizOOP:{
+        q:'What is the first parameter in every Python class method?',
+        opts:[{l:'self',c:true},{l:'this',c:false},{l:'cls',c:false},{l:'me',c:false}]
+    },
+    quizInherit:{
+        q:'Which inheritance type has a chain like Grandfather &rarr; Father &rarr; Son?',
+        opts:[{l:'Multilevel',c:true},{l:'Multiple',c:false},{l:'Single',c:false},{l:'Hierarchical',c:false}]
+    }
+};
+Object.entries(quizzes).forEach(([id,quiz])=>{
+    const container=document.getElementById(id);
+    if(!container)return;
+    container.innerHTML=`
+        <div class="quiz-q">${quiz.q}</div>
+        ${quiz.opts.map((o,i)=>`<label class="quiz-opt"><input type="radio" name="${id}" value="${i}"><span>${o.l}</span></label>`).join('')}
+        <div class="quiz-result" id="${id}-result"></div>
+        <button class="quiz-submit" onclick="checkQuiz('${id}')">Check Answer</button>
+        <button class="quiz-reset" onclick="resetQuiz('${id}')">Reset</button>
+    `;
+});
+function checkQuiz(id){
+    const selected=document.querySelector(`input[name="${id}"]:checked`);
+    const result=document.getElementById(id+'-result');
+    const opts=document.querySelectorAll(`.quiz-opt`);
+    opts.forEach(o=>o.classList.remove('correct','wrong'));
+    if(!selected){result.textContent='Please select an answer!';result.className='quiz-result show';result.style.color='var(--pandas)';return}
+    const idx=parseInt(selected.value);
+    const q=quizzes[id];
+    if(q.opts[idx].c){
+        opts[idx].classList.add('correct');
+        result.textContent='Correct! Great job!';
+        result.style.color='var(--oop)';
+    }else{
+        opts[idx].classList.add('wrong');
+        const correct=q.opts.findIndex(o=>o.c);
+        opts[correct].classList.add('correct');
+        result.textContent=`Not quite. Correct answer: ${q.opts[correct].l}`;
+        result.style.color='var(--pandas)';
+    }
+    result.className='quiz-result show';
+}
+function resetQuiz(id){
+    document.querySelectorAll(`input[name="${id}"]`).forEach(i=>i.checked=false);
+    document.querySelectorAll(`[name="${id}"]`).forEach(o=>o.closest('.quiz-opt').classList.remove('correct','wrong'));
+    const r=document.getElementById(id+'-result');
+    r.className='quiz-result';
+    r.textContent='';
+}
+</script>
 </body>
 </html>
